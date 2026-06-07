@@ -1,0 +1,113 @@
+#!/bin/bash
+set -euo pipefail
+
+# Ensure script can only be run once to prevent corruption.
+LOCKFILE="/run/script_run.lock"
+if [[ -f "$LOCKFILE" ]]; then
+  echo -e "\e[31mERROR: The installation script has already run on this ISO.\e[0m"
+  echo -e "\e[31mERROR: To run it again, reboot the ISO environment.\e[0m"
+  exit 1
+fi
+touch "$LOCKFILE"
+
+# Use current directory as working directoy and fetch variables.
+cd "$(dirname "$0")"
+
+### Variables used inside the script to be modified by user ###
+
+DISK=$1
+
+# Size of 0 represents remaining disk space.
+BOOTSIZE="+2G"
+SWAPSIZE="+16G"
+ROOTSIZE="+150G"
+HOMESIZE="0"
+
+###############################################################
+
+### Verify validity of command
+
+if ! grep -q "AuthenticAMD" /proc/cpuinfo ; then
+  echo "Script requires AMD CPU"
+  exit 1
+fi
+
+if [[ -z "$DISK" ]]; then
+  echo "Usage: install_arch.sh [DISK]"
+  echo "Example: install_arch.sh /dev/sda"
+  exit 1
+fi
+
+if [[ ! "${DISK: -1}" == [a-zA-Z0-9] || ! -b "$DISK" ]]; then
+  echo "Invalid disk name1"
+  echo "Example: install_arch.sh /dev/sda"
+  exit 1
+fi
+
+### Fixed variable (DO NOT TOUCH)
+
+if [[ "${DISK: -1}" == [0-9] ]]; then
+  PARTSUFFIX="p"
+else
+  PARTSUFFIX=""
+fi
+
+EFI=1
+SWAP=2
+ROOT=3
+HOME=4
+
+EFIPART="${DISK}${PARTSUFFIX}${EFI}"
+SWAPPART="${DISK}${PARTSUFFIX}${SWAP}"
+ROOTPART="${DISK}${PARTSUFFIX}${ROOT}"
+HOMEPART="${DISK}${PARTSUFFIX}${HOME}"
+
+SCRIPTDIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+
+### WARNING
+
+echo -e "\e[31mWARNING: This script will wipe '$1' forever.\e[0m"
+echo -e "\e[31mWARNING: This script only works on AMD architectures.\e[0m"
+echo -e "\e[31mWARNING: This script might fail if you mounted or touched an attached disk, only do the strict necessary before runnign this script.\e[0m"
+read -rp "Type DOIT to continue: " CONFIRM
+
+[[ "$CONFIRM" != "DOIT" ]] && { echo "Aborted" ; exit 1; }
+
+### Installation script
+
+# Wipe disk
+# umount -a # Might be problematic to run.
+swapoff -a
+wipefs -a "$DISK"
+sgdisk --zap-all "$DISK"
+
+# Partition disk
+sgdisk -n "$EFI":0:"$BOOTSIZE" -t "$EFI":ef00 -c "$EFI":"EFI" "$DISK"
+sgdisk -n "$SWAP":0:"$SWAPSIZE" -t "$SWAP":8200 -c "$SWAP":"swap" "$DISK"
+sgdisk -n "$ROOT":0:"$ROOTSIZE" -t "$ROOT":8300 -c "$ROOT":"root" "$DISK"
+sgdisk -n "$HOME":0:"$HOMESIZE" -t "$HOME":8300 -c "$HOME":"home" "$DISK"
+
+# Format partitions
+mkfs.fat -F 32 "$EFIPART"
+mkswap "$SWAPPART"
+mkfs.ext4 "$ROOTPART"
+mkfs.ext4 "$HOMEPART"
+
+# Mount the partitions
+mount --mkdir "$ROOTPART" /mnt
+swapon "$SWAPPART"
+mount -o fmask=0137,dmask=0027 --mkdir "$EFIPART" /mnt/boot
+mount --mkdir "$HOMEPART" /mnt/home
+
+# Setup mirrors
+reflector --latest 20 --protocol https --sort rate --country 'CA,US' --save /etc/pacman.d/mirrorlist
+
+# Pacstrap
+pacstrap -K /mnt base base-devel linux linux-lts linux-firmware amd-ucode sudo git vim openssh man-db man-pages texinfo iwd e2fsprogs dosfstools ansible-core
+
+# Fstab
+genfstab -U /mnt >> /mnt/etc/fstab
+
+# chroot
+ROOTPARTUUID=$(blkid -s PARTUUID -o value "${ROOTPART}")
+arch-chroot /mnt "${SCRIPTDIR}/post_chroot.sh" "$ROOTPARTUUID"
