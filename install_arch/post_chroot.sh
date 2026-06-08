@@ -2,11 +2,11 @@
 ### WARNING THIS SCRIPT CANNOT USE STDIN ###
 set -euo pipefail
 
-# root password
-echo "root:${2}" | chpasswd 
-
 # Install boot manager and setup related configs
 bootctl install
+
+# Ensure mountpoint exists
+mountpoint -q /boot || { echo -e "\e[31mERROR: /boot not mounted\e[0m"; exit 1; }
 
 cat << EOF > /boot/loader/loader.conf
 default  arch.conf
@@ -32,4 +32,4 @@ initrd  /initramfs-linux-lts.img
 options root=PARTUUID=${1} rw
 EOF
 
-echo "Installation process complete!"
+echo -e "\e[32mInstallation process complete!\e[0m"
