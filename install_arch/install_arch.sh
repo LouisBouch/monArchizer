@@ -8,7 +8,6 @@ if [[ -f "$LOCKFILE" ]]; then
   echo -e "\e[31mERROR: To run it again, reboot the ISO environment.\e[0m"
   exit 1
 fi
-touch "$LOCKFILE"
 
 ### Variables used inside the script to be modified by user ###
 
@@ -69,6 +68,10 @@ echo -e "\e[31mWARNING: This script might fail if you mounted or touched an atta
 read -rp "Type DOIT to continue: " CONFIRM
 
 [[ "$CONFIRM" != "DOIT" ]] && { echo "Aborted" ; exit 1; }
+
+# Prevent the script from being run multiple times.
+touch "$LOCKFILE"
+
 
 ### Installation script
 
