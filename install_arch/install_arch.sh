@@ -76,11 +76,13 @@ touch "$LOCKFILE"
 ### Installation script
 
 # Wipe disk
+echo -e "\e[32mWiping disk.\e[0m"
 swapoff -a
 wipefs -a "$DISK"
 sgdisk --zap-all "$DISK"
 
 # Partition disk
+echo -e "\e[32mPartitioning disk.\e[0m"
 sgdisk -n "$EFI":0:"$BOOTSIZE" -t "$EFI":ef00 -c "$EFI":"EFI" "$DISK"
 sgdisk -n "$SWAP":0:"$SWAPSIZE" -t "$SWAP":8200 -c "$SWAP":"swap" "$DISK"
 sgdisk -n "$ROOT":0:"$ROOTSIZE" -t "$ROOT":8300 -c "$ROOT":"root" "$DISK"
@@ -88,28 +90,42 @@ sgdisk -n "$HOME":0:"$HOMESIZE" -t "$HOME":8300 -c "$HOME":"home" "$DISK"
 partprobe "$DISK" && udevadm settle # Ensure updated
 
 # Format partitions
+echo -e "\e[32mFormatting disk.\e[0m"
 mkfs.fat -F 32 "$EFIPART"
 mkswap "$SWAPPART"
 mkfs.ext4 "$ROOTPART"
 mkfs.ext4 "$HOMEPART"
 
 # Mount the partitions
+echo -e "\e[32mMounting disk.\e[0m"
 mount --mkdir "$ROOTPART" /mnt
 swapon "$SWAPPART"
 mount -o fmask=0137,dmask=0027 --mkdir "$EFIPART" /mnt/boot # Restrict access to root.
 mount --mkdir "$HOMEPART" /mnt/home
 
 # Setup mirrors
+echo -e "\e[32mGenerating mirrors.\e[0m"
 reflector --latest 20 --protocol https --sort rate --country 'CA,US' --save /etc/pacman.d/mirrorlist
 
 # Pacstrap
+echo -e "\e[32mRunning pacstrap.\e[0m"
 pacstrap -K /mnt base base-devel linux linux-lts linux-firmware amd-ucode sudo git vim openssh man-db man-pages texinfo iwd e2fsprogs dosfstools ansible-core
 
 # Fstab
+echo -e "\e[32mRunning genfstab.\e[0m"
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # chroot
-read -rsp "Enter root password: " PASSWD
-echo "" # Newline because -s from read suppresses it.
+while true; do
+  read -rsp "Enter root password: " PASSWD
+  echo "" # Newline because -s from read suppresses it.
+  read -rsp "Confirm root password: " PASSWDCONF
+  echo ""
+  if [[ "$PASSWD" != "$PASSWDCONF" ]]; then
+    echo -e "\e[31mPasswords don't match, try again.\e[0m"
+  else
+    beak;
+  fi
+done
 ROOTPARTUUID=$(blkid -s PARTUUID -o value "${ROOTPART}")
 arch-chroot /mnt /bin/bash -s "$ROOTPARTUUID" "$PASSWD" < "${SCRIPTDIR}/post_chroot.sh"
