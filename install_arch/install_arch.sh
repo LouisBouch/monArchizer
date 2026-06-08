@@ -12,6 +12,12 @@ touch "$LOCKFILE"
 
 ### Variables used inside the script to be modified by user ###
 
+if [[ "$#" -ne 1 ]]; then
+  echo "Usage: install_arch.sh [DISK]"
+  echo "Example: install_arch.sh /dev/sda"
+  exit 1
+fi
+
 DISK=$1
 
 # Size of 0 represents remaining disk space.
@@ -24,16 +30,8 @@ HOMESIZE="0"
 
 ### Verify validity of command
 
-# if ! grep -q "AuthenticAMD" /proc/cpuinfo ; then
-if ! grep -q "GenuineIntel" /proc/cpuinfo ; then
-  # echo "Script requires AMD CPU"
-  echo "Script requires intel CPU"
-  exit 1
-fi
-
-if [[ -z "$DISK" ]]; then
-  echo "Usage: install_arch.sh [DISK]"
-  echo "Example: install_arch.sh /dev/sda"
+if ! grep -q "AuthenticAMD" /proc/cpuinfo ; then
+  echo "Script requires AMD CPU"
   exit 1
 fi
 
