@@ -78,7 +78,6 @@ touch "$LOCKFILE"
 # Wipe disk
 echo -e "\e[32mWiping disk.\e[0m"
 swapoff -a
-wipefs -a "$DISK"
 sgdisk --zap-all "$DISK"
 
 # Partition disk
@@ -93,8 +92,8 @@ partprobe "$DISK" && udevadm settle # Ensure updated
 echo -e "\e[32mFormatting disk.\e[0m"
 mkfs.fat -F 32 "$EFIPART"
 mkswap "$SWAPPART"
-mkfs.ext4 "$ROOTPART"
-mkfs.ext4 "$HOMEPART"
+mkfs.ext4 -F "$ROOTPART"
+mkfs.ext4 -F "$HOMEPART"
 
 # Mount the partitions
 echo -e "\e[32mMounting disk.\e[0m"
