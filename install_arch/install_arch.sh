@@ -10,9 +10,6 @@ if [[ -f "$LOCKFILE" ]]; then
 fi
 touch "$LOCKFILE"
 
-# Use current directory as working directoy and fetch variables.
-cd "$(dirname "$0")"
-
 ### Variables used inside the script to be modified by user ###
 
 DISK=$1
@@ -27,8 +24,10 @@ HOMESIZE="0"
 
 ### Verify validity of command
 
-if ! grep -q "AuthenticAMD" /proc/cpuinfo ; then
-  echo "Script requires AMD CPU"
+# if ! grep -q "AuthenticAMD" /proc/cpuinfo ; then
+if ! grep -q "GenuineIntel" /proc/cpuinfo ; then
+  # echo "Script requires AMD CPU"
+  echo "Script requires intel CPU"
   exit 1
 fi
 
@@ -61,14 +60,14 @@ EFIPART="${DISK}${PARTSUFFIX}${EFI}"
 SWAPPART="${DISK}${PARTSUFFIX}${SWAP}"
 ROOTPART="${DISK}${PARTSUFFIX}${ROOT}"
 HOMEPART="${DISK}${PARTSUFFIX}${HOME}"
-
-SCRIPTDIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+SCRIPTDIR=$(dirname -- "${BASH_SOURCE[0]}")
+cd -- "$SCRIPTDIR"
 
 ### WARNING
 
-echo -e "\e[31mWARNING: This script will wipe '$1' forever.\e[0m"
+echo -e "\e[31mWARNING: This script will wipe '$DISK' forever.\e[0m"
 echo -e "\e[31mWARNING: This script only works on AMD architectures.\e[0m"
-echo -e "\e[31mWARNING: This script might fail if you mounted or touched an attached disk, only do the strict necessary before runnign this script.\e[0m"
+echo -e "\e[31mWARNING: This script might fail if you mounted or touched an attached disk, only do the strict necessary before running this script.\e[0m"
 read -rp "Type DOIT to continue: " CONFIRM
 
 [[ "$CONFIRM" != "DOIT" ]] && { echo "Aborted" ; exit 1; }
@@ -76,7 +75,6 @@ read -rp "Type DOIT to continue: " CONFIRM
 ### Installation script
 
 # Wipe disk
-# umount -a # Might be problematic to run.
 swapoff -a
 wipefs -a "$DISK"
 sgdisk --zap-all "$DISK"
@@ -86,6 +84,7 @@ sgdisk -n "$EFI":0:"$BOOTSIZE" -t "$EFI":ef00 -c "$EFI":"EFI" "$DISK"
 sgdisk -n "$SWAP":0:"$SWAPSIZE" -t "$SWAP":8200 -c "$SWAP":"swap" "$DISK"
 sgdisk -n "$ROOT":0:"$ROOTSIZE" -t "$ROOT":8300 -c "$ROOT":"root" "$DISK"
 sgdisk -n "$HOME":0:"$HOMESIZE" -t "$HOME":8300 -c "$HOME":"home" "$DISK"
+partprobe "$DISK" && udevadm settle # Ensure updated
 
 # Format partitions
 mkfs.fat -F 32 "$EFIPART"
@@ -96,7 +95,7 @@ mkfs.ext4 "$HOMEPART"
 # Mount the partitions
 mount --mkdir "$ROOTPART" /mnt
 swapon "$SWAPPART"
-mount -o fmask=0137,dmask=0027 --mkdir "$EFIPART" /mnt/boot
+mount -o fmask=0137,dmask=0027 --mkdir "$EFIPART" /mnt/boot # Restrict access to root.
 mount --mkdir "$HOMEPART" /mnt/home
 
 # Setup mirrors
@@ -109,5 +108,7 @@ pacstrap -K /mnt base base-devel linux linux-lts linux-firmware amd-ucode sudo g
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # chroot
+read -rsp "Enter root password: " PASSWD
+echo "" # Newline because -s from read suppresses it.
 ROOTPARTUUID=$(blkid -s PARTUUID -o value "${ROOTPART}")
-arch-chroot /mnt "${SCRIPTDIR}/post_chroot.sh" "$ROOTPARTUUID"
+arch-chroot /mnt /bin/bash -s "$ROOTPARTUUID" "$PASSWD" < "${SCRIPTDIR}/post_chroot.sh"

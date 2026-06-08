@@ -1,8 +1,9 @@
 #!/bin/bash
+### WARNING THIS SCRIPT CANNOT USE STDIN ###
 set -euo pipefail
 
 # root password
-passwd
+echo "root:${2}" | chpasswd 
 
 # Install boot manager and setup related configs
 bootctl install
