@@ -123,7 +123,7 @@ while true; do
   if [[ "$PASSWD" != "$PASSWDCONF" ]]; then
     echo -e "\e[31mPasswords don't match, try again.\e[0m"
   else
-    beak;
+    break;
   fi
 done
 ROOTPARTUUID=$(blkid -s PARTUUID -o value "${ROOTPART}")
