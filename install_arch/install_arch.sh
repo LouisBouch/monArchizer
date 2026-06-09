@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Ensure script can only be run in ISO environment.
 if ! grep -q "archiso" /proc/cmdline; then
-  echo -e "\e[31mERROR: The script can only run in the arch ISO environment.\e[0m"
+  echo -e "\e[31mERROR: The script can only run in the Arch ISO environment.\e[0m"
   exit 1
 fi
 
