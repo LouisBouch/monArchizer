@@ -2,6 +2,8 @@
 ### WARNING THIS SCRIPT CANNOT USE STDIN ###
 set -euo pipefail
 
+echo -e "\e[32mRunning post ch_root script...\e[0m"
+
 # Install boot manager and setup related configs
 bootctl install
 
