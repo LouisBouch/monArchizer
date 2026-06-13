@@ -1,0 +1,192 @@
+---
+- name: Bootstrap Arch Linux
+  hosts: system
+  become: true
+  vars:
+    user_home_dir: "/home/{{ username }}"
+    lock_file_dest: "/etc/bootstrapped.lock"
+  vars_prompt:
+    - name: "password_root"
+      prompt: "Enter your root password"
+      private: "yes"
+    - name: "password_root_conf"
+      prompt: "Confirm root password"
+      private: "yes"
+    - name: "username"
+      prompt: "Enter your username"
+      private: "no"
+    - name: "password_user"
+      prompt: "Enter your user password"
+      private: "yes"
+    - name: "password_user_conf"
+      prompt: "Confirm user password"
+      private: "yes"
+    - name: "email"
+      prompt: "Enter your github email"
+      private: "no"
+    - name: "password_ssh"
+      prompt: "Enter your ssh key password for git"
+      private: "yes"
+    - name: "password_ssh_conf"
+      prompt: "Confirm ssh key password for git"
+      private: "yes"
+
+  pre_tasks:
+    - name: Ensure playbook is run as root
+      ansible.builtin.fail:
+        msg: "This playbook must be executed as root."
+      when: ansible_user != "root"
+
+    - name: Check existence of lock file
+      ansible.builtin.stat:
+        path: "{{ lock_file_dest }}"
+      register: lock_file
+    - name: Ensure playbook has not already run
+      ansible.builtin.fail:
+        msg: "This playbook has already run. It cannot be run again."
+      when: lock_file.stat.exists
+
+    - name: Confirm passwords match
+      ansible.builtin.fail:
+        msg: "{{ item.label }} passwords do not match"
+      when: lookup('ansible.builtin.vars', item.passwd) != lookup('ansible.builtin.vars', item.passwd_conf)
+      no_log: true
+      loop:
+        - {passwd: "password_root", passwd_conf: "password_root_conf", label: "Root"}
+        - {passwd: "password_user", passwd_conf: "password_user_conf", label: "User"}
+        - {passwd: "password_ssh", passwd_conf: "password_ssh_conf", label: "SSH"}
+
+
+  tasks:
+    - name: Ensure required packages are installed
+      become: true
+      community.general.pacman:
+        name:
+          - git
+          - whois
+
+    - name: Create lock file
+      ansible.builtin.file:
+        dest: "{{ lock_file_dest }}" 
+        state: "touch"
+        mode: "0444"
+
+    - name: Set root password
+      ansible.builtin.user:
+        name: "root"
+        password: "{{ lookup('ansible.builtin.pipe', 'mkpasswd -m yescrypt -R 9 ' ~ password_root) }}"
+      no_log: true
+
+    - name: Create user
+      ansible.builtin.user:
+        name: "{{ username }}"
+        create_home: true
+        shell: "/bin/zsh"
+        password: "{{ lookup('ansible.builtin.pipe', 'mkpasswd -m yescrypt -R 9 ' ~ password_user) }}"
+        comment: "{{ username }}"
+        state: "present"
+      no_log: true
+
+    - name: Configure sudo for user
+      ansible.builtin.copy:
+        content: "{{ username }} ALL=(ALL:ALL) ALL"
+        dest: "/etc/sudoers.d/99-{{ username }}"
+        mode: "0440"
+        validate: "/usr/sbin/visudo -cf %s"
+
+    - name: Setup git configs
+      community.general.git_config:
+        name: "{{ item.name }}"
+        value: "{{ item.value }}"
+        scope: "global"
+      loop:
+        - {name: "user.name", value: "{{ username }}"}
+        - {name: "user.email", value: "{{ email }}"}
+        - {name: "pull.rebase", value: "false"}
+        - {name: "init.defaultbranch", value: "main"}
+      become: true
+      become_user: "{{ username }}"
+      environment:
+        HOME: "{{ user_home_dir }}"
+
+    - name: Get remote https from current repo
+      ansible.builtin.command:
+        cmd: "git config --get remote.origin.url"
+      register: remote_http
+
+    - name: Clone monArchizer to user home
+      ansible.builtin.git:
+        repo: "{{ remote_http.stdout }}"
+        dest: "{{ user_home_dir }}/{{ remote_http.stdout | trim | regex_replace('https://github.com/[^/]*/', '') }}"
+        clone: true
+      become: true
+      become_user: "{{ username }}"
+
+    - name: Create ssh key
+      community.crypto.openssh_keypair:
+        path: "{{ user_home_dir }}/.ssh/id_ed25519_github"
+        type: "ed25519"
+        comment: "{{ username }}@arch-github"
+        passphrase: "{{ password_ssh }}"
+      become: true
+      become_user: "{{ username }}"
+
+    - name: Ensure ssh config file exists
+      ansible.builtin.file:
+        path: "{{ user_home_dir }}/.ssh/config"
+        state: "touch"
+        mode: "0600"
+      become: true
+      become_user: "{{ username }}"
+
+    - name: Add ssh configs
+      ansible.builtin.blockinfile:
+        block: |
+          Host github.com
+          HostName github.com
+          User git
+          IdentityFile {{ user_home_dir }}/.ssh/id_ed25519_github
+          IdentitiesOnly  yes
+        path: "{{ user_home_dir }}/.ssh/config"
+      become: true
+      become_user: "{{ username }}"
+
+    - name: Change repo remote from https to ssh
+      ansible.builtin.command:
+        cmd: "git remote set-url origin git@github.com:{{ remote_http.stdout | trim | regex_replace('https://github.com/', '') }}.git"
+        chdir: "{{ user_home_dir }}/{{ remote_http.stdout | trim | regex_replace('https://github.com/[^/]*/', '') }}"
+
+    - name: Show public key
+      ansible.builtin.debug:
+        msg: "Your ssh public key for github is: {{ lookup('file', user_home_dir ~ '/.ssh/id_ed25519_github.pub') }}"
+
+    - name: Ensure .local/bin exists for user
+      ansible.builtin.file:
+        path: "{{ user_home_dir }}/.local/bin"
+        state: directory
+        mode: '0750'
+      become: true
+      become_user: "{{ username }}"
+
+    - name: Create sync script
+      ansible.builtin.template:
+        src: "{{ playbook_dir }}/templates/snc.j2"
+        dest: "{{ user_home_dir }}/.local/bin/snc"
+        mode: '0750'
+      become: true
+      become_user: "{{ username }}"
+      vars:
+        user_playbook_dir: "{{ user_home_dir }}/{{ remote_http.stdout | trim | regex_replace('https://github.com/[^/]*/', '') }}"
+
+    - name: Add sync script to path
+      ansible.builtin.lineinfile:
+        line: "export PATH={{ user_home_dir }}/.local/bin:$PATH"
+        dest: "{{ user_home_dir }}/.zshenv"
+        create: true
+        mode: '0640'
+      become: true
+      become_user: "{{ username }}"
+
+    - name: Success
+      ansible.builtin.debug:
+        msg: "Bootstrap succeeded!"

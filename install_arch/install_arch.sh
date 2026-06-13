@@ -114,7 +114,7 @@ reflector --latest 20 --protocol https --sort rate --country 'CA,US' --save /etc
 
 # Pacstrap
 echo -e "\e[32mRunning pacstrap...\e[0m"
-pacstrap -K /mnt base base-devel linux linux-lts linux-firmware amd-ucode sudo git vim man-db man-pages texinfo iwd e2fsprogs dosfstools ansible-core
+pacstrap -K /mnt base base-devel linux linux-lts linux-firmware amd-ucode sudo git vim man-db man-pages texinfo iwd e2fsprogs dosfstools whois zsh openssh ansible-core
 
 # Fstab
 echo -e "\e[32mRunning genfstab...\e[0m"

@@ -1,0 +1,5 @@
+- name: Bootsrap Arch Linux
+  hosts: system
+  become: true
+  roles:
+    - packages
