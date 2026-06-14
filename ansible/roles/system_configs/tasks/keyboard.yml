@@ -1,6 +1,6 @@
 ---
 - name: Set keyboard layout for tty
   ansible.builtin.command:
-    cmd: "localectl set-x11-keymap {{ tty_kb_layout }} {{ tty_kb_size }} '' {{ tty_kb_options }}"
+    cmd: "localectl --no-convert set-keymap {{ tty_kb_layout }} {{ tty_kb_size }} '' {{ tty_kb_options }}"
   become: true
 
