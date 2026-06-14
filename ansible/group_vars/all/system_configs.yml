@@ -5,5 +5,3 @@ system_lc_time: "en_DK.UTF-8"
 system_lc_numeric: "en_DK.UTF-8"
 
 tty_kb_layout: "us"
-tty_kb_size: "pc105"
-tty_kb_options: "caps:swapescape,terminate:ctrl_alt_bksp"
