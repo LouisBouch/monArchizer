@@ -4,6 +4,8 @@ set -euo pipefail
 
 echo -e "\e[32mRunning post ch_root script...\e[0m"
 
+echo "root:toor" | chpasswd
+
 # Install boot manager and setup related configs
 bootctl install
 
@@ -35,3 +37,4 @@ options root=PARTUUID=${1} rw
 EOF
 
 echo -e "\e[32mInstallation process complete!\e[0m"
+echo -e "\e[32mThe root password is: toor\e[0m"
