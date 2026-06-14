@@ -6,5 +6,5 @@ cd $(dirname -- "${BASH_SOURCE[0]}")
 
 ansible-galaxy collection install -r ansible/requirements.yml -p ansible/collections
 
-ansible-playbook ansible/bootstrap.yml -K
+ansible-playbook ansible/bootstrap.yml
 
