@@ -190,9 +190,11 @@
         playbook_parent_dir: "{{ user_home_dir }}/{{ remote_http.stdout | trim | regex_replace('https://github.com/[^/]*/', '') }}"
 
     - name: Add sync script to path
-      ansible.builtin.lineinfile:
-        line: "export PATH={{ user_home_dir }}/.local/bin:$PATH"
-        dest: "{{ user_home_dir }}/.zshenv"
+      ansible.builtin.blockinfile:
+        block: |
+          export PATH={{ user_home_dir }}/.local/bin:$PATH
+          typeset -U path
+        dest: "{{ user_home_dir }}/.zprofile"
         create: true
         mode: '0640'
       become: true

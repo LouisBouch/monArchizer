@@ -2,4 +2,5 @@
   hosts: system
   become: true
   roles:
+    - system_configs
     - packages
