@@ -16,5 +16,5 @@
 
 - name: Check if locales changed
   ansible.builtin.set_fact:
-    restart_tasks: "{{ restart_tasks + ['Change locales'] }}"
+    restart_tasks: "{{ relog_tasks + ['Change locales'] }}"
   when: locales.changed

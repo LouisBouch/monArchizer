@@ -14,10 +14,10 @@
   tasks:
     - name: Required relog
       ansible.builtin.debug:
-        msg: "{{ ['The system will require a relog to apply the following changes:'] + relog_tasks | map('regex_replace', '^', '  -') | list }}"
+        msg: "{{ ['The system will require a relog to apply the following changes:'] + relog_tasks | map('regex_replace', '^', '  - ') | list }}"
       when: relog_tasks | length > 0
 
     - name: Required restart
       ansible.builtin.debug:
-        msg: "{{ ['The system will require a restart to apply the following changes:'] + restart_tasks | map('regex_replace', '^', '  -') | list }}"
+        msg: "{{ ['The system will require a restart to apply the following changes:'] + restart_tasks | map('regex_replace', '^', '  - ') | list }}"
       when: restart_tasks | length > 0

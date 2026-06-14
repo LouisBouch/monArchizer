@@ -1,5 +1,0 @@
-# List of things that will only apply once restarted.
-restart_tasks: []
-
-# List of things that will only apply once relogged.
-relog_tasks: []
