@@ -35,7 +35,7 @@
     - name: Ensure playbook is run as root
       ansible.builtin.fail:
         msg: "This playbook must be executed as root."
-      when: ansible_user != "root"
+      when: ansible_user_id != "root"
 
     - name: Check existence of lock file
       ansible.builtin.stat:
