@@ -6,7 +6,15 @@
   loop: "{{ [system_lang, system_lc_time, system_lc_numeric] | unique }}"
 
 - name: Set the locales
-  community.general.localectl:
-    lang: "{{ system_lang }}"
-    lc_time: "{{ system_lc_time }}"
-    lc_numeric: "{{ system_lc_numeric }}"
+  ansible.builtin.template:
+    src: "locale.conf.j2"
+    dest: "/etc/locale.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  register: locales
+
+- name: Check if locales changed
+  ansible.builtin.set_fact:
+    restart_tasks: "{{ restart_tasks + ['Change locales'] }}"
+  when: locales.changed
