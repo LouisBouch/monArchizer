@@ -1,1 +1,5 @@
 time_zone: "America/Montreal"
+
+system_lang: "en_US.UTF-8"
+system_lc_time: "en_DK.UTF-8"
+system_lc_numeric: "en_DK.UTF-8"

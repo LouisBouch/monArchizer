@@ -1,0 +1,12 @@
+---
+- name: Generate the locales
+  community.general.locale_gen:
+    name: "{{ item }}"
+    state: "present"
+  loop: "{{ [system_lang, system_lc_time, system_lc_numeric] | unique }}"
+
+- name: Set the locales
+  community.general.localectl:
+    lang: "{{ system_lang }}"
+    lc_time: "{{ system_lc_time }}"
+    lc_numeric: "{{ system_lc_numeric }}"

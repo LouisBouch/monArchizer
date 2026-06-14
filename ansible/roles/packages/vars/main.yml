@@ -1,3 +1,0 @@
----
-- name: List of required packages
-  include_vars: install.yml
