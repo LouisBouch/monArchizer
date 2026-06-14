@@ -2,7 +2,7 @@
 set -e
 
 # Run script from location of this script.
-cd "{{ user_playbook_dir }}"
+cd "{{ playbook_parent_dir }}"
 
 ansible-galaxy collection install -r ansible/requirements.yml -p ansible/collections
 

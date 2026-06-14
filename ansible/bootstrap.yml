@@ -176,7 +176,7 @@
       become: true
       become_user: "{{ username }}"
       vars:
-        user_playbook_dir: "{{ user_home_dir }}/{{ remote_http.stdout | trim | regex_replace('https://github.com/[^/]*/', '') }}"
+        playbook_parent_dir: "{{ user_home_dir }}/{{ remote_http.stdout | trim | regex_replace('https://github.com/[^/]*/', '') }}"
 
     - name: Add sync script to path
       ansible.builtin.lineinfile:

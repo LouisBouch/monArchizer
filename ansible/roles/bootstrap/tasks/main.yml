@@ -1,6 +1,0 @@
----
-- name: Setup root password
-  import_tasks: root.yml
-
-- name: Create user
-  import_tasks: user.yml
