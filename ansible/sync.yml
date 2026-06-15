@@ -2,8 +2,7 @@
   hosts: system
   become: true
   roles:
-    - system_configs
-    - packages
+    - system_base
 
   vars:
     # List of things that will only apply once restarted.
