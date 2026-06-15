@@ -1,0 +1,9 @@
+---
+- name: Set the timezone
+  community.general.timezone:
+    name: "{{ time_zone }}"
+
+- name: Keep motherboard clock synchronized
+  ansible.builtin.service:
+    name: systemd-timesyncd
+    enabled: true

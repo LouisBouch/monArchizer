@@ -4,6 +4,10 @@ set -euo pipefail
 
 echo -e "\e[32mRunning post ch_root script...\e[0m"
 
+# Synchronize motherboard clock
+echo -e "\e[32mSynchronizing motherboard clock...\e[0m"
+hwclock --systohc
+
 echo "root:toor" | chpasswd
 
 # Install boot manager and setup related configs

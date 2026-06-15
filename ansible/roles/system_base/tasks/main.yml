@@ -1,4 +1,4 @@
 ---
-- import_tasks: timezone.yml
+- import_tasks: time.yml
 - import_tasks: tty_font_layout.yml
 - import_tasks: locale.yml

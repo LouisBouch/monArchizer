@@ -110,6 +110,7 @@ mount --mkdir "$HOMEPART" /mnt/home
 
 # Setup mirrors
 echo -e "\e[32mGenerating mirrors...\e[0m"
+timedatectl
 reflector --latest 20 --protocol https --sort rate --country 'CA,US' --save /etc/pacman.d/mirrorlist
 
 # Pacstrap
