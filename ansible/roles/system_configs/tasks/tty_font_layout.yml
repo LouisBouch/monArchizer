@@ -1,5 +1,5 @@
 ---
-- name: Set keyboard layout for tty
+- name: Set keyboard layout and font for tty
   ansible.builtin.template:
     src: "vconsole.conf.j2"
     dest: "/etc/vconsole.conf"

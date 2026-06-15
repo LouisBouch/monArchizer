@@ -5,3 +5,4 @@ system_lc_time: "en_DK.UTF-8"
 system_lc_numeric: "en_DK.UTF-8"
 
 tty_kb_layout: "us"
+tty_font: "gr928b-8x16.psfu.gz"
