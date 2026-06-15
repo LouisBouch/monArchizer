@@ -1,0 +1,5 @@
+---
+- name: Apply layout changes
+  ansible.builtin.command:
+    cmd: "/usr/lib/systemd/systemd-vconsole-setup"
+  become: true

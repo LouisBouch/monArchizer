@@ -1,10 +1,10 @@
 ---
 - name: Set keyboard layout for tty
-  ansible.builtin.command:
-    cmd: "localectl --no-convert set-keymap {{ tty_kb_layout }}"
+  ansible.builtin.template:
+    src: "vconsole.conf.j2"
+    dest: "/etc/vconsole.conf"
+    mode: "0644"
+    owner: "root"
+    group: "root"
   become: true
-
-- name: Apply layout changes
-  ansible.builtin.command:
-    cmd: "/usr/lib/systemd/systemd-vconsole-setup"
-  become: true
+  notify: Apply layout changes
