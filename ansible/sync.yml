@@ -3,7 +3,7 @@
   become: true
   roles:
     - system_base
-    - firewall
+    - security
 
   vars:
     # List of things that will only apply once restarted.
