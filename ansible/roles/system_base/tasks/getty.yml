@@ -1,10 +1,22 @@
 ---
+- name: Ensure drop-in directory exists
+  ansible.builtin.file:
+    path: "/etc/systemd/system/getty@.service.d/"
+    state: "directory"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+  become: true
+
 - name: Activate automatic numlock on boot through getty
   ansible.builtin.copy:
     content: |
       [Service]
       ExecStartPre=/bin/sh -c 'setleds -D +num < /dev/%I'
     dest: "/etc/systemd/system/getty@.service.d/activate-numlock.conf"
-    mode: "0440"
+    mode: "0644"
+    owner: "root"
+    group: "root"
+    become: true
     validate: "/usr/sbin/visudo -cf %s"
 
