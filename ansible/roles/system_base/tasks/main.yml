@@ -2,3 +2,4 @@
 - import_tasks: time.yml
 - import_tasks: tty_font_layout.yml
 - import_tasks: locale.yml
+- import_tasks: hostname.yml
