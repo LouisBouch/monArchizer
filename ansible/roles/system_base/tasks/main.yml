@@ -4,3 +4,4 @@
 - import_tasks: locale.yml
 - import_tasks: hostname.yml
 - import_tasks: pacman_conf.yml
+- import_tasks: getty.yml
