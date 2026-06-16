@@ -17,6 +17,5 @@
     mode: "0644"
     owner: "root"
     group: "root"
-    become: true
-    validate: "/usr/sbin/visudo -cf %s"
+  become: true
 
