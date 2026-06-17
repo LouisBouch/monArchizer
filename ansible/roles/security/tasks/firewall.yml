@@ -20,6 +20,7 @@
     cmd: "systemctl is-enabled nftables"
   register: nftables_status
   changed_when: false
+  failed_when: false
 
 - name: Load nftables if it did start not at boot
   ansible.builtin.systemd_service:
