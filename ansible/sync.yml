@@ -4,6 +4,7 @@
   roles:
     - system_base
     - security
+    - network
 
   vars:
     # List of things that will only apply once restarted.
