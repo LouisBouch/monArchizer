@@ -1,11 +1,11 @@
 ---
 - name: Install nftables package
   community.general.pacman:
-    name: nftables
-    state: present
+    name: "nftables"
+    state: "present"
   become: true
 
-- name: Create sync script
+- name: Create nftables configs
   ansible.builtin.template:
     src: "templates/nftables.conf.j2"
     dest: "/etc/nftables.conf"
@@ -13,10 +13,11 @@
     owner: "root"
     group: "root"
   become: true
+  notify: Reload nftables
 
 - name: Enable and start nftables
   ansible.builtin.systemd_service:
-    name: nftables
-    state: started
+    name: "nftables"
+    state: "started"
     enabled: true
   become: true
