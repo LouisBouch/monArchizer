@@ -25,7 +25,7 @@
 - name: Load nftables if it did start not at boot
   ansible.builtin.systemd_service:
     name: "nftables"
-    state: "start"
+    state: "started"
   become: true
   when: nftables_status.stdout == "disabled"
 
