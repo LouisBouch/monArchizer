@@ -1,0 +1,4 @@
+---
+- import_tasks: iwd.yml
+- import_tasks: networkd.yml
+- import_tasks: resolved.yml

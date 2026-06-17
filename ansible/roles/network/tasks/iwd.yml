@@ -1,0 +1,17 @@
+---
+- name: Enable and start iwd
+  ansible.builtin.systemd_service:
+    name: "iwd"
+    state: "started"
+    enabled: true
+  become: true
+
+- name: Ensure iwd will not enable DHCP
+  ansible.builtin.copy:
+    content: |
+      [General]
+      EnableNetworkConfiguration=false
+    dest: "/etc/iwd/main.conf"
+    mode: "0644"
+  become: true
+  notify: Restart iwd

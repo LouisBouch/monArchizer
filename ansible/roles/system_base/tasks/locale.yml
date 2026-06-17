@@ -10,8 +10,7 @@
     src: "locale.conf.j2"
     dest: "/etc/locale.conf"
     mode: "0644"
-    owner: "root"
-    group: "root"
+  become: true
   register: locales
 
 - name: Check if locales changed

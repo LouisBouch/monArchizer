@@ -4,7 +4,5 @@
     src: "vconsole.conf.j2"
     dest: "/etc/vconsole.conf"
     mode: "0644"
-    owner: "root"
-    group: "root"
   become: true
   notify: Apply layout changes

@@ -1,0 +1,65 @@
+---
+- name: Enable and start networkd
+  ansible.builtin.systemd_service:
+    name: "systemd-networkd"
+    state: "started"
+    enabled: true
+  become: true
+
+- name: Configure DHCP and priority for WIFI
+  ansible.builtin.copy:
+    content: |
+      [Match]
+      Type=wlan
+      WLANInterfaceType=station
+      SSID=*
+
+      [Network]
+      DHCP=yes
+
+      [DHCPv4]
+      RouteMetric=600
+
+      [IPv6AcceptRA]
+      RouteMetric=600
+    dest: "/etc/systemd/network/80-wifi-station.network"
+    mode: "0644"
+  become: true
+  notify: Restart networkd
+
+- name: Configure DHCP and priority for Ethernet
+  ansible.builtin.copy:
+    content: |
+      [Match]
+      Kind=!*
+      Type=ether
+
+      [Network]
+      DHCP=yes
+
+      [DHCPv4]
+      RouteMetric=100
+
+      [IPv6AcceptRA]
+      RouteMetric=100
+    dest: "/etc/systemd/network/90-ethernet.network"
+    mode: "0644"
+  become: true
+  notify: Restart networkd
+
+- name: Ensure networkd drop-in config directory exists
+  ansible.builtin.file:
+    path: "/etc/systemd/system/systemd-networkd-wait-online.service.d"
+    state: "directory"
+    mode: "0755"
+  become: true
+
+- name: Do not wait for all interfaces to be ready if network-wait is started
+  ansible.builtin.copy:
+    content: |
+      [Service]
+      ExecStart=
+      ExecStart=/usr/lib/systemd/systemd-networkd-wait-online --any --timeout=30
+    dest: "/etc/systemd/system/systemd-networkd-wait-online.service.d/wait-for-dns.conf"
+    mode: "0644"
+  become: true

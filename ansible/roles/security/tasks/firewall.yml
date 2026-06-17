@@ -10,8 +10,6 @@
     src: "templates/nftables.conf.j2"
     dest: "/etc/nftables.conf"
     mode: "0644"
-    owner: "root"
-    group: "root"
   become: true
   notify: Reload nftables
 

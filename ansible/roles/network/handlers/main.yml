@@ -1,0 +1,18 @@
+---
+- name: Restart resolved
+  ansible.builtin.systemd_service:
+    name: "systemd-resolved"
+    state: "restarted"
+  become: true
+
+- name: Restart iwd
+  ansible.builtin.systemd_service:
+    name: "iwd"
+    state: "restarted"
+  become: true
+
+- name: Restart networkd
+  ansible.builtin.systemd_service:
+    name: "systemd-networkd"
+    state: "restarted"
+  become: true

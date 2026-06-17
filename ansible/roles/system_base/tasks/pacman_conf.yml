@@ -4,8 +4,6 @@
     src: "templates/pacman.conf.j2"
     dest: "/etc/pacman.conf"
     mode: '0644'
-    owner: "root"
-    group: "root"
   become: true
   vars:
     playbook_parent_dir: "{{ user_home_dir }}/{{ remote_http.stdout | trim | regex_replace('https://github.com/[^/]*/', '') }}"
