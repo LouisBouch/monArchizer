@@ -85,6 +85,8 @@
         shell: "/bin/zsh"
         password: "{{ lookup('ansible.builtin.pipe', 'mkpasswd -m yescrypt -R 9 ' ~ password_user) }}"
         comment: "{{ username }}"
+        groups: "wheel"
+        append: true
         state: "present"
       no_log: true
 
