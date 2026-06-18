@@ -2,9 +2,12 @@
   hosts: system
   become: true
   roles:
-    - system_base
-    - security
-    - network
+    - role: system_base
+      tags: system_base
+    - role: security
+      tags: security
+    - role: network
+      tags: network
 
   vars:
     # List of things that will only apply once restarted.
