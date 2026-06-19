@@ -1,0 +1,8 @@
+---
+- name: Get wiremix for TUI audio manipulation
+  community.general.pacman:
+    name:
+      - "wiremix"
+    state: "present"
+  become: true
+  register: install

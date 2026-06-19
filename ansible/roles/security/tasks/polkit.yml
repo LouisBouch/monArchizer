@@ -1,7 +1,8 @@
 ---
 - name: Install polkit to give access to power options with no sudo
-  become: true
   community.general.pacman:
     name:
       - polkit
+    state: "present"
+  become: true
 
