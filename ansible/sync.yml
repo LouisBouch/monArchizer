@@ -8,6 +8,10 @@
       tags: security
     - role: network
       tags: network
+    - role: audio
+      tags: audio
+    - role: maintenance
+      tags: maintenance
 
   vars:
     # List of things that will only apply once restarted.

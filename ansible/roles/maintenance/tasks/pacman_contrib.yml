@@ -1,0 +1,21 @@
+---
+- name: Get pacman-contrib package
+  community.general.pacman:
+    name:
+      - "pacman-contrib"
+    state: "present"
+  become: true
+
+- name: Enable and start pacman cache cleaner timer
+  ansible.builtin.systemd_service:
+    name: "paccache.timer"
+    state: "started"
+    enabled: true
+  become: true
+
+- name: Enable and start ssd block trimmer timer
+  ansible.builtin.systemd_service:
+    name: "fstrim.timer"
+    state: "started"
+    enabled: true
+  become: true
