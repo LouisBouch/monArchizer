@@ -1,0 +1,26 @@
+---
+- name: Get Chezmoi for dotfile management
+  community.general.pacman:
+    name:
+      - "chezmoi"
+    state: "present"
+  become: true
+
+- name: Point chezmoi to location of dotfiles
+  ansible.builting.copy:
+    content: |
+      sourceDir = "{{ repo_dir }}/ansible/dotfiles"
+    dest: "{{ user_home_dir }}/.dotfiles/chezmoi.toml"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Check dotfile changes with chezmoi
+  ansible.builtin.command:
+    cmd: "chezmoi diff"
+  changed_when: false
+  register: chezmoi_diff
+
+- name: Apply chezmoi dotfiles changes
+  ansible.builtin.command:
+    cmd: "chezmoi apply"
+  when: chezmoi_diff.stdout | length > 0

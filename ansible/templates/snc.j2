@@ -2,9 +2,9 @@
 set -e
 
 # Run script from location of this script.
-cd "{{ playbook_parent_dir }}"
+cd "{{ repo_dir }}"
 
 ansible-galaxy collection install -r ansible/requirements.yml -p ansible/collections
 
-ansible-playbook ansible/sync.yml -K "$@"
+ansible-playbook ansible/sync.yml --extra-vars '{{ {"user_home_dir": user_home_dir, "username": username, "repo_dir": repo_dir} | to_json }}' -K "$@"
 

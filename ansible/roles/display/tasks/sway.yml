@@ -1,5 +1,5 @@
 ---
-- name: Get wiremix for TUI audio manipulation
+- name: Get Sway as tiling manager
   community.general.pacman:
     name:
       - "sway"

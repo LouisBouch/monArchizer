@@ -117,10 +117,14 @@
         cmd: "git config --get remote.origin.url"
       register: remote_http
 
+    - name: Create repository directory variable
+      ansible.builtin.set_fact:
+        repo_dir: "{{ user_home_dir }}/{{ remote_http.stdout | trim | regex_replace('https://github.com/[^/]*/', '') }}"
+
     - name: Clone monArchizer to user home
       ansible.builtin.git:
         repo: "{{ remote_http.stdout }}"
-        dest: "{{ user_home_dir }}/{{ remote_http.stdout | trim | regex_replace('https://github.com/[^/]*/', '') }}"
+        dest: "{{ repo_dir }}"
         clone: true
       become: true
       become_user: "{{ username }}"
@@ -165,7 +169,7 @@
     - name: Change repo remote from https to ssh
       ansible.builtin.command:
         cmd: "git remote set-url origin git@github.com:{{ remote_http.stdout | trim | regex_replace('https://github.com/', '') }}.git"
-        chdir: "{{ user_home_dir }}/{{ remote_http.stdout | trim | regex_replace('https://github.com/[^/]*/', '') }}"
+        chdir: "{{ repo_dir }}"
       become: true
       become_user: "{{ username }}"
 
@@ -189,14 +193,20 @@
       become: true
       become_user: "{{ username }}"
       vars:
-        playbook_parent_dir: "{{ user_home_dir }}/{{ remote_http.stdout | trim | regex_replace('https://github.com/[^/]*/', '') }}"
+        repo_dir: "{{ repo_dir }}"
+        user_home_dir: "{{ user_home_dir }}"
+        username: "{{ username }}"
+
+    - name: Add sync script to path temporarily
+      ansible.builtin.command:
+        cmd: "export PATH={{ user_home_dir }}/.local/bin:$PATH"
 
     - name: Add sync script to path
       ansible.builtin.blockinfile:
         block: |
           export PATH={{ user_home_dir }}/.local/bin:$PATH
           typeset -U path
-        dest: "{{ user_home_dir }}/.zprofile"
+        dest: "{{ repo_dir }}/ansible/dotfiles/dot_zprofile"
         create: true
         mode: '0640'
       become: true
