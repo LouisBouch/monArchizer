@@ -12,6 +12,10 @@
       tags: audio
     - role: maintenance
       tags: maintenance
+    - role: display
+      tags: display
+    - role: chezmoi
+      tags: chezmoi
 
   vars:
     # List of things that will only apply once restarted.
@@ -24,8 +28,10 @@
       ansible.builtin.debug:
         msg: "{{ ['The system will require a relog to apply the following changes:'] + relog_tasks | map('regex_replace', '^', '  - ') | list }}"
       when: relog_tasks | length > 0
+      tags: always
 
     - name: Required restart
       ansible.builtin.debug:
         msg: "{{ ['The system will require a restart to apply the following changes:'] + restart_tasks | map('regex_replace', '^', '  - ') | list }}"
       when: restart_tasks | length > 0
+      tags: always
