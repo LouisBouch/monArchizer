@@ -1,0 +1,9 @@
+---
+- name: Get wiremix for TUI audio manipulation
+  community.general.pacman:
+    name:
+      - "sway"
+      - "swayidle"
+      - "swaybg"
+    state: "present"
+  become: true
