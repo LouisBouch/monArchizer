@@ -16,6 +16,8 @@
       tags: display
     - role: chezmoi
       tags: chezmoi
+    - role: terminal
+      tags: terminal
 
   vars:
     # List of things that will only apply once restarted.

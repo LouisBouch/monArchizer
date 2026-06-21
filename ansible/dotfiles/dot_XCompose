@@ -1,2 +1,24 @@
-<Multi_key> <e> : <é>
-<Multi_key> <`> <e> : <è>
+include  "%L"
+
+<Multi_key> <e> : "é"
+
+<Multi_key> <'> <e> : "è"
+<Multi_key> <'> <a> : "à"
+<Multi_key> <'> <u> : "ù"
+
+<Multi_key> <[> <e> : "ê"
+<Multi_key> <[> <a> : "â"
+<Multi_key> <[> <i> : "î"
+<Multi_key> <[> <o> : "ô"
+<Multi_key> <[> <u> : "û"
+
+<Multi_key> <]> <e> : "ë"
+<Multi_key> <]> <i> : "ï"
+<Multi_key> <]> <u> : "ü"
+
+<Multi_key> <c> : "ç"
+
+<Multi_key> <z> : "«"
+<Multi_key> <x> : "»"
+
+<Multi_key> <;> : "~"

@@ -1,0 +1,8 @@
+---
+- name: Get the foot editor
+  community.general.pacman:
+    name:
+      - "foot"
+      - "foot-terminfo"
+    state: "present"
+  become: true
