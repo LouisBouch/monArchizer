@@ -1,8 +1,7 @@
 ---
-- name: Get the foot terminal
+- name: Get the neovim editor
   community.general.pacman:
     name:
-      - "foot"
-      - "foot-terminfo"
+      - "neovim"
     state: "present"
   become: true

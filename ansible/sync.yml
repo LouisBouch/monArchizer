@@ -18,6 +18,8 @@
       tags: chezmoi
     - role: terminal
       tags: terminal
+    - role: editor
+      tags: editor
 
   vars:
     # List of things that will only apply once restarted.
