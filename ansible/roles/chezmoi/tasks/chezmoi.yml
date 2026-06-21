@@ -30,6 +30,6 @@
 
 - name: Apply chezmoi dotfiles changes
   ansible.builtin.command:
-    cmd: "chezmoi apply"
+    cmd: "chezmoi apply --force"
   when: chezmoi_diff.stdout | length > 0
   become_user: "{{ username }}"
