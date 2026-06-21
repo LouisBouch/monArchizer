@@ -6,3 +6,6 @@ input type:keyboard {
   xkb_numlock enabled
   xkb_options "compose:ralt,caps:swapescape"
 }
+
+output * allow_tearing yes
+output * max_render_time off
