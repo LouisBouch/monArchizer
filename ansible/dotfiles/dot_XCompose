@@ -1,20 +1,18 @@
-include  "%L"
-
 <Multi_key> <e> : "é"
 
 <Multi_key> <apostrophe> <e> : "è"
 <Multi_key> <apostrophe> <a> : "à"
 <Multi_key> <apostrophe> <u> : "ù"
 
-<Multi_key> <parenleft> <e> : "ê"
-<Multi_key> <parenleft> <a> : "â"
-<Multi_key> <parenleft> <i> : "î"
-<Multi_key> <parenleft> <o> : "ô"
-<Multi_key> <parenleft> <u> : "û"
+<Multi_key> <bracketleft> <e> : "ê"
+<Multi_key> <bracketleft> <a> : "â"
+<Multi_key> <bracketleft> <i> : "î"
+<Multi_key> <bracketleft> <o> : "ô"
+<Multi_key> <bracketleft> <u> : "û"
 
-<Multi_key> <parenright> <e> : "ë"
-<Multi_key> <parenright> <i> : "ï"
-<Multi_key> <parenright> <u> : "ü"
+<Multi_key> <bracketright> <e> : "ë"
+<Multi_key> <bracketright> <i> : "ï"
+<Multi_key> <bracketright> <u> : "ü"
 
 <Multi_key> <c> : "ç"
 

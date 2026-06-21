@@ -5,7 +5,7 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 
 # Cool logo
-neofetch
+fastfetch
 
 # Prompt
 PROMPT='%n@%/:~$ '

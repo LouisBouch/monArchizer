@@ -4,6 +4,6 @@
     name:
       - "foot"
       - "foot-terminfo"
-      - "neofetch"
+      - "fastfetch"
     state: "present"
   become: true
