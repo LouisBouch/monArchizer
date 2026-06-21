@@ -20,6 +20,8 @@
       tags: terminal
     - role: editor
       tags: editor
+    - role: browser
+      tags: browser
 
   vars:
     # List of things that will only apply once restarted.
