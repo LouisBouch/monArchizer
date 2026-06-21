@@ -25,6 +25,7 @@
   ansible.builtin.command:
     cmd: "chezmoi diff"
   changed_when: false
+  become: "{{ username }}"
   register: chezmoi_diff
 
 - name: Apply chezmoi dotfiles changes
