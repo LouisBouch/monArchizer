@@ -1,0 +1,4 @@
+input * {
+  repeat-delay 330
+  repeat-rate 40
+}

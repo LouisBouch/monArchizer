@@ -1,0 +1,8 @@
+---
+- name: Install commit mono nerd font
+  community.general.pacman:
+    name:
+      - otf-commit-mono-nerd
+    state: "present"
+  become: true
+
