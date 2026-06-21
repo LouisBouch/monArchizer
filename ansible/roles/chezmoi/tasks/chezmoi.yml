@@ -7,10 +7,10 @@
   become: true
 
 - name: Point chezmoi to location of dotfiles
-  ansible.builting.copy:
+  ansible.builtin.copy:
     content: |
       sourceDir = "{{ repo_dir }}/ansible/dotfiles"
-    dest: "{{ user_home_dir }}/.dotfiles/chezmoi.toml"
+    dest: "{{ user_home_dir }}/.config/chezmoi/chezmoi.toml"
     owner: "{{ username }}"
     group: "{{ username }}"
 

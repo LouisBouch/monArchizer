@@ -192,25 +192,6 @@
         mode: '0750'
       become: true
       become_user: "{{ username }}"
-      vars:
-        repo_dir: "{{ repo_dir }}"
-        user_home_dir: "{{ user_home_dir }}"
-        username: "{{ username }}"
-
-    - name: Add sync script to path temporarily
-      ansible.builtin.command:
-        cmd: "export PATH={{ user_home_dir }}/.local/bin:$PATH"
-
-    - name: Add sync script to path
-      ansible.builtin.blockinfile:
-        block: |
-          export PATH={{ user_home_dir }}/.local/bin:$PATH
-          typeset -U path
-        dest: "{{ repo_dir }}/ansible/dotfiles/dot_zprofile"
-        create: true
-        mode: '0640'
-      become: true
-      become_user: "{{ username }}"
 
     - name: Success
       ansible.builtin.debug:
