@@ -1,3 +1,4 @@
+include /etc/sway/config
 input type:keyboard {
   repeat_delay 330
   repeat_rate 40
