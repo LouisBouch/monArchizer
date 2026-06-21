@@ -2,4 +2,9 @@ include /etc/sway/config
 input type:keyboard {
   repeat_delay 330
   repeat_rate 40
+
+  xkb_options "caps:swapescape"
+  xkb_numlock enabled
+  # Set composition rules
+  xkb_options "compose:ralt"
 }
