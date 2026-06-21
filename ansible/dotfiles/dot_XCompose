@@ -2,23 +2,23 @@ include  "%L"
 
 <Multi_key> <e> : "é"
 
-<Multi_key> <'> <e> : "è"
-<Multi_key> <'> <a> : "à"
-<Multi_key> <'> <u> : "ù"
+<Multi_key> <apostrophe> <e> : "è"
+<Multi_key> <apostrophe> <a> : "à"
+<Multi_key> <apostrophe> <u> : "ù"
 
-<Multi_key> <[> <e> : "ê"
-<Multi_key> <[> <a> : "â"
-<Multi_key> <[> <i> : "î"
-<Multi_key> <[> <o> : "ô"
-<Multi_key> <[> <u> : "û"
+<Multi_key> <parenleft> <e> : "ê"
+<Multi_key> <parenleft> <a> : "â"
+<Multi_key> <parenleft> <i> : "î"
+<Multi_key> <parenleft> <o> : "ô"
+<Multi_key> <parenleft> <u> : "û"
 
-<Multi_key> <]> <e> : "ë"
-<Multi_key> <]> <i> : "ï"
-<Multi_key> <]> <u> : "ü"
+<Multi_key> <parenright> <e> : "ë"
+<Multi_key> <parenright> <i> : "ï"
+<Multi_key> <parenright> <u> : "ü"
 
 <Multi_key> <c> : "ç"
 
 <Multi_key> <z> : "«"
 <Multi_key> <x> : "»"
 
-<Multi_key> <;> : "~"
+<Multi_key> <semicolon> : "~"
