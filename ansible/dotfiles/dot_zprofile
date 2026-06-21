@@ -1,2 +1,8 @@
+# Add path to the ansible sync command
 export PATH="$HOME/.local/bin:$PATH"
 typeset -U path
+
+# Auto start sway on TTY 1
+if [ -z "$WAYLAND_DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ] ; then
+    exec sway
+fi
