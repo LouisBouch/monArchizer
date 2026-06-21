@@ -4,5 +4,5 @@ input type:keyboard {
   repeat_rate 40
 
   xkb_numlock enabled
-  xkb_options "compose:ralt,caps:swapscape"
+  xkb_options "compose:ralt,caps:swapescape"
 }
