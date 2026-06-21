@@ -25,10 +25,11 @@
   ansible.builtin.command:
     cmd: "chezmoi diff"
   changed_when: false
-  become: "{{ username }}"
+  become_user: "{{ username }}"
   register: chezmoi_diff
 
 - name: Apply chezmoi dotfiles changes
   ansible.builtin.command:
     cmd: "chezmoi apply"
   when: chezmoi_diff.stdout | length > 0
+  become_user: "{{ username }}"
