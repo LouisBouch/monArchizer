@@ -1,12 +1,36 @@
 {
     "layer": "top",
+    "position": "top",
+    "height": "32",
+
     "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["sway/window"],
-    "modules-right": ["clock"],
-    "sway/window": {
-        "max-length": 50
+    "modules-center": ["clock"],
+    "modules-right": ["network", "cpu", "memory", "tray"],
+
+    "sway/workspaces": {
+      "disable-scoll": true,
+      "all-outputs": true,
     },
+
     "clock": {
-        "format-alt": "{:%a, %d. %b  %H:%M}"
+      "format": "{:%A, %Y-%m-%d\n%H:%M}",
+      "justiify": "center"
+    },
+
+    "network": {
+      "format-wifi": "  {signalstrength}%",
+      "format-disconnected": "  Offline"
+    },
+
+    "cpu": {
+      "format": "  {usage}%",
+    },
+
+    "memory": {
+      "format": "  {used}MB",
+    },
+
+    "tray": {
+      "spacing": 10
     }
 }
