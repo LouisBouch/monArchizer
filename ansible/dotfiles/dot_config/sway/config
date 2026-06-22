@@ -16,8 +16,13 @@ input type:pointer {
 output * max_render_time off
 output * allow_tearing yes
 
+output * bg ~/.config/sway/wallpapers/bg.webp fill
+
 # FIgure out what rule to put in the brackets to match games and allow tearing.
 # for_window [shell="xwayland"] allow_tearing yes
 
-
 output DP-2 mode 1920x1080@143.981Hz
+
+seat seat0 xcursor_theme Adwaita 24 
+
+bindsym $mod+Shift+s exec swaylock && systemctl suspend

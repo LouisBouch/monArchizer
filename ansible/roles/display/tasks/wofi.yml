@@ -1,0 +1,8 @@
+---
+- name: Install wofi as application launcher
+  community.general.pacman:
+    name:
+      - wofi
+    state: "present"
+  become: true
+
