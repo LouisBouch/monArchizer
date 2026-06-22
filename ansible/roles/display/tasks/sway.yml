@@ -6,6 +6,7 @@
       - "swayidle"
       - "swaylock"
       - "swaybg"
+      - "waybar"
       - "foot"
     state: "present"
   become: true
