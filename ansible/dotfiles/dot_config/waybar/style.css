@@ -16,7 +16,7 @@ window#waybar {
 
 /*GTK injects: background-image, box-shadow, text-shadow, transition, border-color.
   This requires manual removal.*/
-#workspace button {
+#workspaces button {
   box-shadow: none;
   border-color: transparent;
   text-shadow: none;
@@ -29,13 +29,13 @@ window#waybar {
   color: @txt;
 }
 
-#workspace button.focused {
+#workspaces button.focused {
   background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0));
   background-color: @txt;
   color: @bg;
 }
 
-#workspace button:hover {
+#workspaces button:hover {
   background-image: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15));
   background-color: @txt;
   color: @bg;
