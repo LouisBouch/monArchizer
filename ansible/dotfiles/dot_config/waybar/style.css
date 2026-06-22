@@ -2,7 +2,7 @@
 @define-color txt #cdd6f4;
 * {
   font-family: CommitMono Nerd Font, monospace;
-  font-size; 13px;
+  font-size: 13px;
 }
 
 .modules-right > widget > * {
@@ -25,6 +25,8 @@ window#waybar {
   background-image: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15));
   border-radius: 8px;
   padding: 5px;
+  background-color: @bg;
+  color: @txt;
 }
 
 #workspace button.focused {

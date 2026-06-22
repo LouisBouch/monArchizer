@@ -20,7 +20,7 @@
   },
 
   "memory": {
-    "format": "  {used}GiB | {percentage}%",
+    "format": "  {used}GiB|{percentage}%",
     "justify": "center"
   },
 
