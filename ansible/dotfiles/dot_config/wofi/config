@@ -1,0 +1,8 @@
+allow_images=true
+image_size=64
+width=20%
+height=70%
+insensitive=true
+show=drun,run
+columns=1
+
