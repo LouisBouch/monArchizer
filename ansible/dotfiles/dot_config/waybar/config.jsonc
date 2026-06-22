@@ -7,32 +7,8 @@
     "modules-center": ["clock"],
     "modules-right": ["network", "cpu", "memory", "tray"],
 
-    "sway/workspaces": {
-      "disable-scoll": true,
-      "all-outputs": true
-    },
+    include: [
+      "~/.config/waybay/modules.json"
+    ]
 
-    "clock": {
-      "format": "{:%A, %Y-%m-%d\n%H:%M}",
-      "justify": "center"
-    },
-
-    "network": {
-      "format-wifi": "  {signalStrength}%",
-      "format-ethernet": "󰈀  Connected",
-      "format-disconnected": "  Offline"
-    },
-
-    "cpu": {
-      "format": "  {usage}%"
-    },
-
-    "memory": {
-      "format": "  {used}GiB/\n{total}Gib",
-      "justify": "center"
-    },
-
-    "tray": {
-      "spacing": 10
-    }
 }
