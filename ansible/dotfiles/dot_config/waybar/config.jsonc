@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "position": "top",
-    "height": "40",
+    "margin-bottom": 3,
 
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["clock"],

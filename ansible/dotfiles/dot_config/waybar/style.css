@@ -9,9 +9,15 @@
   padding: 0 10px;
 }
 
-window#waybar {
+.modules-center > widget > * {
+  font-weight: bold;
+}
+
+window#waybar > box{
   background-color: @bg;
   color: @txt;
+  border-bottom: 2px solid @txt;
+  padding 5px;
 }
 
 /*GTK injects: background-image, box-shadow, text-shadow, transition, border-color.
@@ -27,6 +33,9 @@ window#waybar {
   padding: 5px;
   background-color: @bg;
   color: @txt;
+}
+#workspaces button label {
+  font-size: 15px;
 }
 
 #workspaces button.focused {
