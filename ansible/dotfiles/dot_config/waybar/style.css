@@ -53,7 +53,7 @@ window#waybar > box{
 #mode {
   background: #82120a;
   border-radius: 8px;
-  margin: left 10px;
+  margin-left: 10px;
   font-weight: bold;
   padding-left: 5px;
   padding-right: 5px;
