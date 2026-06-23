@@ -234,8 +234,8 @@ set $primary_color #1e1e2e
 set $secondary_color #cdd6f4
 # gaps inner 2
 # gaps outer 2
-client.focued $secondary_color $secondary_color $primary_color $secondary_color $secondary_color
-client.unfocued $primary_color $primary_color $secondary_color $primary_color $primary_color
+client.focused $secondary_color $secondary_color $primary_color $secondary_color $secondary_color
+client.unfocused $primary_color $primary_color $secondary_color $primary_color $primary_color
 font pango: CommitMono Nerd Font 10
 
 include /etc/sway/config.d/*
