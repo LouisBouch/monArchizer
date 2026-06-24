@@ -28,7 +28,7 @@
     repo: "https://aur.archlinux.org/yay.git"
     dest: "/tmp/yay"
   become: true
-  become_user: "{{ username }}"
+  become_user: "aur_builder"
   when: which_yay.rc != 0
 
 
