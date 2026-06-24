@@ -5,4 +5,6 @@
     dest: "/etc/vconsole.conf"
     mode: "0644"
   become: true
-  notify: Apply layout changes
+  notify:
+    - Apply layout changes
+    - Process all preset files in /etc/mkinitcpio.d/

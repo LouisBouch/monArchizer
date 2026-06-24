@@ -3,3 +3,8 @@
   ansible.builtin.command:
     cmd: "/usr/lib/systemd/systemd-vconsole-setup"
   become: true
+
+- name: Process all preset files in /etc/mkinitcpio.d/
+  ansible.builtin.command:
+    cmd: "mkinitcpio -P"
+  become: true
