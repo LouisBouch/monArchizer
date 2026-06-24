@@ -1,7 +1,8 @@
 ---
-- name: Install firefox
+- name: Install discord
   community.general.pacman:
     name:
-      - firefox
+      - discord
     state: "present"
   become: true
+

@@ -24,6 +24,8 @@
       tags: browser
     - role: aur
       tags: aur
+    - role: social
+      tags: social
 
   vars:
     # List of things that will only apply once restarted.
