@@ -6,8 +6,26 @@
       - "swayidle"
       - "swaylock"
       - "swaybg"
+    state: "present"
+  become: true
+
+- name: Get waybar for customizable title bar
+  community.general.pacman:
+    name:
       - "waybar"
-      - "xorg-xwayland"
+    state: "present"
+  become: true
+
+- name: Get foot terminal
+  community.general.pacman:
+    name:
       - "foot"
+    state: "present"
+  become: true
+
+- name: Get XWayland compatibility layer
+  community.general.pacman:
+    name:
+      - "xorg-xwayland"
     state: "present"
   become: true
