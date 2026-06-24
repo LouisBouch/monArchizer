@@ -75,7 +75,7 @@
     - name: Set root password
       ansible.builtin.user:
         name: "root"
-        password: "{{ lookup('ansible.builtin.pipe', 'mkpasswd -m yescrypt -R 9 ' ~ password_root) }}"
+        password: "{{ lookup('ansible.builtin.pipe', 'mkpasswd -m yescrypt -R 9 ' ~ password_root | quote) }}"
       no_log: true
 
     - name: Create user
@@ -83,7 +83,7 @@
         name: "{{ username }}"
         create_home: true
         shell: "/bin/zsh"
-        password: "{{ lookup('ansible.builtin.pipe', 'mkpasswd -m yescrypt -R 9 ' ~ password_user) }}"
+        password: "{{ lookup('ansible.builtin.pipe', 'mkpasswd -m yescrypt -R 9 ' ~ password_user | quote) }}"
         comment: "{{ username }}"
         groups: "wheel"
         append: true
