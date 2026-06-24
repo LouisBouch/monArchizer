@@ -72,6 +72,10 @@
         state: "touch"
         mode: "0444"
 
+    - name: Ensure efi variables are written to motherboard
+      ansible.builtin.command:
+        cmd: "bootctl install"
+
     - name: Set root password
       ansible.builtin.user:
         name: "root"
