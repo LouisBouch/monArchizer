@@ -7,6 +7,7 @@
       - "swaylock"
       - "swaybg"
       - "waybar"
+      - "xorg-xwayland"
       - "foot"
     state: "present"
   become: true
