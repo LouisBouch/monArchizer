@@ -6,10 +6,27 @@
   changed_when: false
   failed_when: false
 
+- name: Create user that does not require sudo for pacman
+  ansible.builtin.user:
+    name: "aur_builder"
+    create_home: true
+    password: "!"
+  become: true
+
+- name: Give necessary permission to aur_builder user
+  ansible.builtin.lineinfile:
+    path: "/etc/sudoers.d/11-aur_builder"
+    line: "aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+    create: true
+    mode: "0440"
+    validate: "visudo -cf %s"
+  become: true
+
+
 - name: Clone yay if not downloaded
   ansible.builtin.git:
     repo: "https://aur.archlinux.org/yay.git"
-    dest: "{{ user_home_dir }}/yay"
+    dest: "/tmp/yay"
   become: true
   become_user: "{{ username }}"
   when: which_yay.rc != 0
@@ -18,9 +35,9 @@
 - name: Build yay
   ansible.builtin.command:
     cmd: "makepkg -si --noconfirm"
-    chdir: "{{ user_home_dir }}/yay"
+    chdir: "/tmp/yay"
   become: true
-  become_user: "{{ username }}"
+  become_user: "aur_builder"
   when: which_yay.rc != 0
 
 
