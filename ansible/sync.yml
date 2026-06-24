@@ -22,6 +22,8 @@
       tags: editor
     - role: browser
       tags: browser
+    - role: aur
+      tags: aur
 
   vars:
     # List of things that will only apply once restarted.

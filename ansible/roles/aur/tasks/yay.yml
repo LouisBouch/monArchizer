@@ -1,0 +1,26 @@
+---
+- name: Check if yay is installed
+  builtin.ansible.command:
+    cmd: "which yay"
+  register: which_yay
+  changed_when: false
+  failed_when: false
+
+- name: Clone yay if not downloaded
+  ansible.builtin.git:
+    repo: "https://aur.archlinux.org/yay.git"
+    dest: "{{ user_home_dir }}/yay"
+  become: true
+  become_user: "{{ username }}"
+  when: which_yay.rc != 0
+
+
+- name: Build yay
+  ansible.builtin.command:
+    cmd: "makepkg -si --noconfirm"
+    chdir: "{{ user_home_dir }}/yay"
+  become: true
+  become_user: "{{ username }}"
+  when: which_yay.rc != 0
+
+
