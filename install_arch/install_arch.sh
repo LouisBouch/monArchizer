@@ -57,12 +57,12 @@ fi
 EFI=1
 SWAP=2
 ROOT=3
-HOME=4
+HOM=4
 
 EFIPART="${DISK}${PARTSUFFIX}${EFI}"
 SWAPPART="${DISK}${PARTSUFFIX}${SWAP}"
 ROOTPART="${DISK}${PARTSUFFIX}${ROOT}"
-HOMEPART="${DISK}${PARTSUFFIX}${HOME}"
+HOMEPART="${DISK}${PARTSUFFIX}${HOM}"
 SCRIPTDIR=$(dirname -- "${BASH_SOURCE[0]}")
 
 ### WARNING
@@ -90,7 +90,7 @@ echo -e "\e[32mPartitioning disk...\e[0m"
 sgdisk -n "$EFI":0:"$BOOTSIZE" -t "$EFI":ef00 -c "$EFI":"EFI" "$DISK"
 sgdisk -n "$SWAP":0:"$SWAPSIZE" -t "$SWAP":8200 -c "$SWAP":"swap" "$DISK"
 sgdisk -n "$ROOT":0:"$ROOTSIZE" -t "$ROOT":8300 -c "$ROOT":"root" "$DISK"
-sgdisk -n "$HOME":0:"$HOMESIZE" -t "$HOME":8300 -c "$HOME":"home" "$DISK"
+sgdisk -n "$HOM":0:"$HOMESIZE" -t "$HOM":8300 -c "$HOM":"home" "$DISK"
 partprobe "$DISK" && udevadm settle # Ensure updated
 sleep 1
 
