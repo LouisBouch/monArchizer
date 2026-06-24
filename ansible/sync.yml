@@ -33,6 +33,9 @@
 
     # List of things that will only apply once relogged.
     relog_tasks: []
+
+    # List of things that will only apply once relogged.
+    restart_sway_tasks: []
   tasks:
     - name: Required relog
       ansible.builtin.debug:
@@ -44,4 +47,10 @@
       ansible.builtin.debug:
         msg: "{{ ['The system will require a restart to apply the following changes:'] + restart_tasks | map('regex_replace', '^', '  - ') | list }}"
       when: restart_tasks | length > 0
+      tags: always
+
+    - name: Required sway restart
+      ansible.builtin.debug:
+        msg: "{{ ['Sway will require a restart to apply the following changes:'] + restart_sway_tasks | map('regex_replace', '^', '  - ') | list }}"
+      when: restart_sway_tasks | length > 0
       tags: always

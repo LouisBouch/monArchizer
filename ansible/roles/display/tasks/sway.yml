@@ -28,4 +28,10 @@
     name:
       - "xorg-xwayland"
     state: "present"
+  register: xwayland_install
   become: true
+
+- name: Require rebooting sway when xwayland is installed
+  ansible.builtin.set_fact:
+    relog_tasks: "{{ restart_sway_tasks + ['Configure XWayland'] }}"
+  when: xwayland_install.changed
