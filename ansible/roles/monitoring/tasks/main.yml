@@ -1,0 +1,8 @@
+---
+- name: Get TUI monitoring tools
+  community.general.pacman:
+    name:
+      - "btop"
+      - "s-tui"
+    state: "present"
+  become: true
