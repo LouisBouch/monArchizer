@@ -28,6 +28,8 @@
       tags: social
     - role: monitoring
       tags: monitoring
+    - role: gaming
+      tags: gaming
 
   vars:
     # List of things that will only apply once restarted.
