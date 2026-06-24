@@ -1,6 +1,6 @@
 ---
 - name: Check if yay is installed
-  builtin.ansible.command:
+  ansible.builtin.command:
     cmd: "which yay"
   register: which_yay
   changed_when: false
