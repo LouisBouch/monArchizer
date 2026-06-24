@@ -16,13 +16,6 @@
     state: "present"
   become: true
 
-- name: Get foot terminal
-  community.general.pacman:
-    name:
-      - "foot"
-    state: "present"
-  become: true
-
 - name: Get XWayland compatibility layer
   community.general.pacman:
     name:
