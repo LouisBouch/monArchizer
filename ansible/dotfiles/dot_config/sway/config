@@ -238,4 +238,7 @@ client.focused $secondary_color $secondary_color $primary_color $secondary_color
 client.unfocused $primary_color $primary_color $secondary_color $primary_color $primary_color
 font pango: CommitMono Nerd Font 10
 
+# Visual indication of windows running with xwayland
+for_window [shell="xwayland"] title_format "[XWayland] %title""
+
 include /etc/sway/config.d/*
