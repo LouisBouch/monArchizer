@@ -12,5 +12,5 @@ fastfetch
 PROMPT='%n@%/:~$ '
 
 # Set default editor
-VISUAL=nvim
-EDITOR=nvim
+export VISUAL=nvim
+export EDITOR=nvim
