@@ -5,3 +5,21 @@
       - "steam"
     state: "present"
   become: true
+
+- name: Ensure the vulkan drivers are installed
+  community.general.pacman:
+    name:
+      - "vulkan-radeon"
+      - "lib32-vulkan-radeon"
+      - "mesa"
+      - "lib32-mesa"
+    state: "present"
+  become: true
+
+- name: Remove nvidia drivers if they were installed
+  community.general.pacman:
+    name:
+      - "nvidia-utils"
+      - "lib32-nvidia-utils"
+    state: "absent"
+  become: true

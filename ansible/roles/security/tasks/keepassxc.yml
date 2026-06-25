@@ -6,3 +6,9 @@
     state: "present"
   become: true
 
+- name: Get qt5-wayland for keepassxc
+  community.general.pacman:
+    name:
+      - qt5-wayland
+    state: "present"
+  become: true
