@@ -1,0 +1,14 @@
+- name: Get mangohud to monitor FPS
+  community.general.pacman:
+    name:
+      - "mangohud"
+      - "lib32-mangohud"
+    state: "present"
+  become: true
+
+- name: Get goverlay to configure mangohud
+  community.general.pacman:
+    name:
+      - "goverlay"
+    state: "present"
+  become: true

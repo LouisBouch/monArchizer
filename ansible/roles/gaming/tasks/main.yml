@@ -1,2 +1,3 @@
 ---
 - import_tasks: steam.yml
+- import_tasks: mangohud.yml
