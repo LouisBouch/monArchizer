@@ -1,0 +1,8 @@
+---
+- name: Install keepassxc for password management
+  community.general.pacman:
+    name:
+      - keepassxc
+    state: "present"
+  become: true
+

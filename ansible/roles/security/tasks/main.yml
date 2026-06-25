@@ -1,3 +1,4 @@
 ---
 - import_tasks: firewall.yml
 - import_tasks: polkit.yml
+- import_tasks: keepassxc.yml
