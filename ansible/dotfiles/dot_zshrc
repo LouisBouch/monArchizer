@@ -10,3 +10,7 @@ fastfetch
 
 # Prompt
 PROMPT='%n@%/:~$ '
+
+# Set default editor
+VISUAL=nvim
+EDITOR=nvim
