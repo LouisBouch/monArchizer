@@ -4,6 +4,8 @@
   roles:
     - role: system_base
       tags: system_base
+    - role: aur
+      tags: aur
     - role: security
       tags: security
     - role: network
@@ -22,8 +24,6 @@
       tags: editor
     - role: browser
       tags: browser
-    - role: aur
-      tags: aur
     - role: social
       tags: social
     - role: monitoring
