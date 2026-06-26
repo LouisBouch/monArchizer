@@ -1,0 +1,16 @@
+---
+- name: Create mount point for media content
+  ansible.builtin.file:
+    path: "/media"
+    state: "directory"
+    mode: "0755"
+  become: true
+
+
+- name: Create mount point for usb
+  ansible.builtin.file:
+    path: "/media/usb"
+    state: "directory"
+    mode: "0755"
+  become: true
+

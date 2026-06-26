@@ -226,8 +226,8 @@ output DP-2 mode 1920x1080@143.981Hz
 seat seat0 xcursor_theme Adwaita 24
 
 # Keybind to lock sway and put pc to sleep.
-bindsym $mod+Shift+s exec sh -c "swaylock -f -i ~/.config/sway/wallpapers/bg.webp -k --indicator-radius 70 --indicator-thickness 30; sleep 2; systemctl suspend"
-bindsym $mod+Shift+z exec poweroff
+bindsym --no-repeat $mod+Shift+s exec sh -c "swaylock -f -i ~/.config/sway/wallpapers/bg.webp -k --indicator-radius 70 --indicator-thickness 30 && sleep 1 && systemctl suspend"
+bindsym --no-repeat $mod+Shift+z exec poweroff
 
 # client.<class> <border> <background> <text> [<indicator> [<child_border>]]
 set $primary_color #1e1e2e
