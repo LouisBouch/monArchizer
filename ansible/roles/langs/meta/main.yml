@@ -1,0 +1,4 @@
+---
+dependencies:
+  - role: "langs/roles/rust"
+

@@ -1,0 +1,35 @@
+---
+- name: Install rustup
+  community.general.pacman:
+    name:
+      - "rustup"
+    state: "present"
+  become: true
+
+- name: Check if Rust toolchain is installed
+  ansible.builtin.command:
+    cmd: "rustup show active-toolchain"
+  become: true
+  become_user: "{{ username }}"
+  changed_when: false
+  failed_when: false
+  register: toolchain
+
+- name: Install toolchain if not present
+  ansible.builtin.command:
+    cmd: "rustup default stable"
+  become: true
+  become_user: "{{ username }}"
+  when: "'stable' not in toolchain.stdout"
+
+- name: Install linter, formatter and LSP
+  ansible.builtin.command:
+    cmd: "rustup component add {{ item }}"
+  loop:
+    - "rust-analyzer"
+    - "clippy"
+    - "rustfmt"
+  become: true
+  become_user: "{{ username }}"
+  register: component
+  changed_when: "'up to date' not in component.stderr"

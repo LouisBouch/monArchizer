@@ -9,6 +9,14 @@
     state: "present"
   become: true
 
+- name: Get command line utilities
+  community.general.pacman:
+    name:
+      - "wl-clipboard"
+    state: "present"
+  register: clipboard_install
+  become: true
+
 - name: Get waybar for customizable title bar
   community.general.pacman:
     name:
@@ -28,3 +36,8 @@
   ansible.builtin.set_fact:
     restart_sway_tasks: "{{ restart_sway_tasks + ['Configure XWayland'] }}"
   when: xwayland_install.changed
+
+- name: Require rebooting sway when wl-clipboard is installed
+  ansible.builtin.set_fact:
+    restart_sway_tasks: "{{ restart_sway_tasks + ['Add clipboard utility'] }}"
+  when: clipboard_install.changed

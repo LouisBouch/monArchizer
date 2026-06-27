@@ -30,6 +30,8 @@
       tags: monitoring
     - role: gaming
       tags: gaming
+    - role: langs
+      tags: langs
 
   vars:
     # List of things that will only apply once restarted.
