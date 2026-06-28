@@ -1,0 +1,15 @@
+---
+- name: Get tree
+  community.general.pacman:
+    name:
+      - "tree"
+    state: "present"
+  become: true
+
+- name: Get ripgrep
+  community.general.pacman:
+    name:
+      - "ripgrep"
+    state: "present"
+  become: true
+
