@@ -1,0 +1,5 @@
+std = "selene_lib"
+
+[lints]
+global_usage = "allow" # Allows the modification of _G
+mixed_table = "allow" # Allows talbe of the form {item1, key1 = item2}
