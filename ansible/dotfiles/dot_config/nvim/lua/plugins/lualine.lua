@@ -2,7 +2,6 @@ return {
   "nvim-lualine/lualine.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   event = "VeryLazy",
-  category = meta_h.categories.ui,
   opts = {
     options = {
       globalstatus = false,

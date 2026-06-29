@@ -1,0 +1,11 @@
+---
+- name: Get latex tools
+  community.general.pacman:
+    name:
+      - "texlive-latex"
+      - "texlive-luatex"
+      - "texlive-binextra"
+      - "biber"
+      - "texlive-fontsrecommended"
+    state: "present"
+  become: true

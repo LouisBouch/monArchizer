@@ -1,8 +1,13 @@
 ---
-- name: Install commit mono nerd font
+- name: Install commit mono nerd font with emojis
   community.general.pacman:
     name:
-      - otf-commit-mono-nerd
+      - "otf-commit-mono-nerd"
+      - "noto-fonts-emoji"
     state: "present"
   become: true
 
+- name: Require rebooting sway when updating fonts
+  ansible.builtin.set_fact:
+    restart_sway_tasks: "{{ restart_sway_tasks + ['Update fonts'] }}"
+  when: clipboard_install.changed

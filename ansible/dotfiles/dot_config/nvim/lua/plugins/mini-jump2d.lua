@@ -2,12 +2,13 @@ return {
   "nvim-mini/mini.jump2d",
   opts = {
     allowed_windows = { not_current = false },
-    labels = 'abcdefghijklmnopqrstuvwxyz;ABCDEFGHIJKLMNOPQRSTUVWXYZ:',
+    view = {
+      dim = true,
+      n_steps_ahead = 1,
+    },
+    labels = 'abcdefghijklmnopqrstuvwxyz;ACDEFHIJKLMNOPQRSUVWXYZ:',
   },
   config = function(_, opts)
-    vim.api.nvim_set_hl(0, 'MiniJump2dSpot', { reverse = true })
-    vim.api.nvim_set_hl(0, 'MiniJump2dSpotUnique', { reverse = true })
-    vim.api.nvim_set_hl(0, 'MiniJump2dSpotAhead', { reverse = true })
     require('mini.jump2d').setup(opts)
   end,
   keys = {

@@ -1,4 +1,7 @@
 ---
 dependencies:
   - role: "langs/roles/rust"
+  - role: "langs/roles/node"
+  - role: "langs/roles/lua"
+  - role: "langs/roles/latex"
 

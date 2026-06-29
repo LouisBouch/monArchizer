@@ -1,0 +1,9 @@
+---
+- name: Get pdf reader
+  community.general.pacman:
+    name:
+      - "zathura"
+      - "zathura-pdf-mupdf"
+    state: "present"
+  become: true
+

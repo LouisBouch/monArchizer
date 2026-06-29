@@ -32,6 +32,8 @@
       tags: gaming
     - role: langs
       tags: langs
+    - role: tools
+      tags: tools
 
   vars:
     # List of things that will only apply once restarted.

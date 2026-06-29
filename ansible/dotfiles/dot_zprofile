@@ -1,5 +1,6 @@
 # Add path to the ansible sync command
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$/usr/lib/rustup/bin:$PATH"
 typeset -U path
 
 # Auto start sway on TTY 1

@@ -46,7 +46,6 @@ local colorSchemes = {
 local urls = map(colorSchemes, function(v)
   local t = v[1]
   t.lazy = true
-  t.category = meta_h.categories.colorscheme
   return t
 end)
 

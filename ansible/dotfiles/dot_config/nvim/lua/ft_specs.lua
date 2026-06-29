@@ -10,7 +10,7 @@
 -- Similarly, for a list of parsers, see [https://github.com/tree-sitter/tree-sitter/wiki/List-of-parsers]
 --
 -- Also, this here is only for listing the tools used. To access the configs for
--- each filetype, go to the corresponding ./lua/langs/...
+-- each filetype, go to the corresponding tool's directory (lsp, dap, formatting, ...)
 
 
 ---@class Filetype
@@ -26,56 +26,57 @@ local M = {}
 M = {
   lua = { -- Lua, .lua
     parser = "lua",
-    formatters = { { name = "stylua" } },
-    linters = { { name = "selene" } },
-    lang_servs = { { name = "lua_ls" }, },
-    debug_adps = { { name = "osv_lua" } },
+    formatters = { "stylua" },
+    linters = { "selene" },
+    lang_servs = { "lua_ls", },
+    debug_adps = { "osv_lua" },
   },
-  rs = { -- Rust, .rs
+  rust = { -- Rust, .rs
     parser = "rust",
-    lang_servs = { { name = "rust_analyzer" }, },
+    lang_servs = { "rust_analyzer", },
   },
+  -- TODO: Check if entry is required for .h and .hpp files
   c = { -- C, .c .h
     parser = "c",
   },
   cpp = { -- C++, .cpp .hpp
     parser = "cpp",
-    formatters = { { name = "clang-format" } },
-    lang_servs = { { name = "clangd" } },
-    debug_adps = { { name = "codelldb" } },
+    formatters = { "clang-format" },
+    lang_servs = { "clangd" },
+    debug_adps = { "codelldb" },
   },
-  md = { -- Markdown, .md
+  markdown = { -- Markdown, .md
     parser = "markdown",
-    formatters = { { name = "prettier" } },
+    formatters = { "prettier" },
   },
   css = { -- CSS, .css
     parser = "css",
-    formatters = { { name = "prettier" } },
+    formatters = { "prettier" },
   },
   slint = {
     parser = "slint",
-    lang_servs = { { name = "slint_lsp" } },
+    lang_servs = { "slint_lsp" },
   },
   html = { -- HTML, .html
     parser = "html",
-    formatters = { { name = "prettier" } },
+    formatters = { "prettier" },
   },
   sql = { -- SQL, .sql
     parser = "sql",
   },
   json = { --- Json, .json
     parser = "json",
-    formatters = { { name = "prettier" } },
-    linters = { { name = "jsonlint" } },
+    formatters = { "prettier" },
+    linters = { "jsonlint" },
   },
-  py = { -- Python, .py
+  python = { -- Python, .py
     parser = "python",
-    formatters = { { name = "ruff_format" } },
-    lang_servs = { { name = "basedpyright" } },
+    formatters = { "ruff_format" },
+    lang_servs = { "basedpyright" },
   },
-  tex = { -- Latex, .tex
+  plaintex = { -- Latex, .tex
     parser = "latex",
-    formatters = { { name = "tex-fmt" } },
+    formatters = { "tex-fmt" },
   },
   sh = { -- Bash, .sh
     parser = "bash",
@@ -85,7 +86,7 @@ M = {
   },
   toml = { -- TOML, .toml
     parser = "toml",
-    lang_servs = { { name = "tombi" } },
+    lang_servs = { "tombi" },
   },
   vim = { -- Vimscript, .vim
     parser = "vim",

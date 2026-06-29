@@ -1,0 +1,8 @@
+---
+- name: Get jsregex to get ECMAScript regular expressions for Lua
+  community.general.pacman:
+    name:
+      - "lua-jsregexp"
+    state: "present"
+  become: true
+
