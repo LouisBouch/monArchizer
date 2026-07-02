@@ -48,4 +48,4 @@ The following external plugins and packages are required in order to achieve ful
 - [npm](https://nodejs.org/en/download) (For npm dependent projects)
 - [imagemagick](https://imagemagick.org/) (To see images within pickers)
 
-TODO: Stuff not yet ported, dap stuff (both from plugins and langs/dap), ftplugins stuff for slint, lsp stuff for slint (from langs/lsp), harpoon?, noice replacement.
+TODO: Stuff not yet ported, dap stuff (both from plugins and langs/dap), ftplugins stuff for slint, harpoon?, noice replacement.

@@ -212,8 +212,8 @@ input type:pointer {
 
 output * max_render_time off
 output * allow_tearing yes
-# FIgure out what rule to put in the brackets to match games and allow tearing.
-# for_window [shell="xwayland"] allow_tearing yes
+# Allow tearing for steam games
+# for_window [class="^steam_app_.*"] allow_tearing yes
 
 output * bg ~/.config/sway/wallpapers/bg.webp fill
 
@@ -242,3 +242,6 @@ font pango: CommitMono Nerd Font 10
 for_window [shell="xwayland"] title_format "[XWayland] %title""
 
 include /etc/sway/config.d/*
+
+# Add snipping tool functionality
+bindsym $mod+print exec sh -c 'mkdir -p /tmp/screenshots/ && TARGET=$(mktemp /tmp/screenshots/img_XXXX.png) && grimshot save area $TARGET && wl-copy < $TARGET || rm -f $TARGET'
