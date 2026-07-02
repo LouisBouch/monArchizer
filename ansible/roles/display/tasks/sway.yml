@@ -1,31 +1,40 @@
 ---
-- name: Get Sway as tiling manager
-  community.general.pacman:
+- name: Install Sway as tiling manager
+  ansible.builtin.pacman:
     name:
       - "sway"
       - "swayidle"
       - "swaylock"
       - "swaybg"
+      - "sway-contrib"
     state: "present"
   become: true
 
-- name: Get command line utilities
-  community.general.pacman:
+- name: Install xdg portals
+  ansible.builtin.pacman:
+    name:
+      - "xdg-desktop-portal"
+      - "xdg-desktop-portal-wlr"
+    state: "present"
+  become: true
+
+- name: Install command line utilities
+  ansible.builtin.pacman:
     name:
       - "wl-clipboard"
     state: "present"
   register: clipboard_install
   become: true
 
-- name: Get waybar for customizable title bar
-  community.general.pacman:
+- name: Install waybar for customizable title bar
+  ansible.builtin.pacman:
     name:
       - "waybar"
     state: "present"
   become: true
 
-- name: Get XWayland compatibility layer
-  community.general.pacman:
+- name: Install XWayland compatibility layer
+  ansible.builtin.pacman:
     name:
       - "xorg-xwayland"
     state: "present"
