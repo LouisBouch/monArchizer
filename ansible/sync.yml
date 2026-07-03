@@ -4,36 +4,36 @@
   roles:
     - role: system_base
       tags: system_base
-    - role: aur
-      tags: aur
-    - role: security
-      tags: security
     - role: network
       tags: network
+    - role: security
+      tags: security
+    - role: aur
+      tags: aur
     - role: audio
       tags: audio
-    - role: maintenance
-      tags: maintenance
     - role: display
       tags: display
-    - role: chezmoi
-      tags: chezmoi
+    - role: langs
+      tags: langs
     - role: terminal
       tags: terminal
     - role: editor
       tags: editor
+    - role: tools
+      tags: tools
     - role: browser
       tags: browser
+    - role: gaming
+      tags: gaming
     - role: social
       tags: social
     - role: monitoring
       tags: monitoring
-    - role: gaming
-      tags: gaming
-    - role: langs
-      tags: langs
-    - role: tools
-      tags: tools
+    - role: chezmoi
+      tags: chezmoi
+    - role: maintenance
+      tags: maintenance
 
   vars:
     # List of things that will only apply once restarted.

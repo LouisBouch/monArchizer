@@ -1,35 +1,42 @@
 ---
-- name: Get tree
+- name: Install tree
   community.general.pacman:
     name:
       - "tree"
     state: "present"
   become: true
 
-- name: Get ripgrep
+- name: Install ripgrep
   community.general.pacman:
     name:
       - "ripgrep"
     state: "present"
   become: true
 
-- name: Get zip reader
+- name: Install zip reader
   community.general.pacman:
     name:
       - "unzip"
     state: "present"
   become: true
 
-- name: Get fd, a better find command
+- name: Install fd, a better find command
   community.general.pacman:
     name:
       - "fd"
     state: "present"
   become: true
 
-- name: Get treesitter cli
+- name: Install treesitter cli
   community.general.pacman:
     name:
       - "tree-sitter-cli"
+    state: "present"
+  become: true
+
+- name: Install dmidecode for hardware info
+  community.general.pacman:
+    name:
+      - "dmidecode"
     state: "present"
   become: true
