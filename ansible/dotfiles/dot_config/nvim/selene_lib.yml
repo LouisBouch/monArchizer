@@ -3,6 +3,8 @@ base: lua51 # We will be extending off of Lua 5.1.
 
 # Add globals defined within the neovim configs
 globals:
+  MiniJump2d:
+    any: true
   vim:
     any: true
   Snacks:
