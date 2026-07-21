@@ -15,7 +15,6 @@ return {
     { "F", mode = {"n", "o", "x" }, function()
       local spotter = MiniJump2d.builtin_opts.line_start
       spotter.allowed_lines = { cursor_before = true, cursor_after = true }
-      spotter.hooks.after_jump = nil
       MiniJump2d.start(spotter)
     end,
     desc = "Jump to start of any line in buffer" },
@@ -23,7 +22,6 @@ return {
     { "f", mode = {"n", "o", "x" }, function()
       local spotter = MiniJump2d.builtin_opts.single_character
       spotter.allowed_lines = { cursor_before = true, cursor_after = true }
-      spotter.hooks.after_jump = nil
       MiniJump2d.start(spotter)
     end,
     desc = "Jump to any character visible in buffer" },
@@ -33,6 +31,7 @@ return {
       spotter.allowed_lines = { cursor_before = true, cursor_after = true }
       spotter.hooks.after_jump = function()
         vim.cmd("normal! h")
+        spotter.hooks.after_jump = nil
       end
       MiniJump2d.start(spotter)
     end,
@@ -43,6 +42,7 @@ return {
       spotter.allowed_lines = { cursor_before = true, cursor_after = true }
       spotter.hooks.after_jump = function()
         vim.cmd("normal! l")
+        spotter.hooks.after_jump = nil
       end
       MiniJump2d.start(spotter)
     end,

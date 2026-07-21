@@ -4,6 +4,7 @@
     name:
       - "otf-commit-mono-nerd"
       - "noto-fonts-emoji"
+      - "extra/noto-fonts-cjk"
     state: "present"
   become: true
 

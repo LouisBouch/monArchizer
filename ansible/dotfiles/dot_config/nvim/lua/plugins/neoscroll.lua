@@ -1,12 +1,12 @@
 return {
   "karb94/neoscroll.nvim",
   config = function()
-    neoscroll = require('neoscroll')
+    local neoscroll = require('neoscroll')
     local keymap = {
-      ["<C-u>"] = function() neoscroll.ctrl_u({ duration = 100 }) end;
-      ["<C-d>"] = function() neoscroll.ctrl_d({ duration = 100 }) end;
-      ["<C-b>"] = function() neoscroll.ctrl_b({ duration = 100 }) end;
-      ["<C-f>"] = function() neoscroll.ctrl_f({ duration = 100 }) end;
+      ["<C-u>"] = function() neoscroll.ctrl_u({ duration = 50 }) end;
+      ["<C-d>"] = function() neoscroll.ctrl_d({ duration = 50 }) end;
+      ["<C-b>"] = function() neoscroll.ctrl_b({ duration = 50 }) end;
+      ["<C-f>"] = function() neoscroll.ctrl_f({ duration = 50 }) end;
       ["<C-y>"] = function() neoscroll.scroll(-0.1, { move_cursor=false; duration = 50 }) end;
       ["<C-e>"] = function() neoscroll.scroll(0.1, { move_cursor=false; duration = 50 }) end;
       ["zt"]    = function() neoscroll.zt({ half_win_duration = 80 }) end;

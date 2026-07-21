@@ -40,3 +40,10 @@
       - "dmidecode"
     state: "present"
   become: true
+
+- name: Install ImageMagick
+  community.general.pacman:
+    name:
+      - "imagemagick"
+    state: "present"
+  become: true
