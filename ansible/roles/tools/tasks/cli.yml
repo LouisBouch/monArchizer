@@ -47,3 +47,10 @@
       - "imagemagick"
     state: "present"
   become: true
+
+- name: Install strace
+  community.general.pacman:
+    name:
+      - "strace"
+    state: "present"
+  become: true

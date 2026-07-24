@@ -2,3 +2,4 @@
 - import_tasks: sway.yml
 - import_tasks: font.yml
 - import_tasks: wofi.yml
+- import_tasks: monitors.yml

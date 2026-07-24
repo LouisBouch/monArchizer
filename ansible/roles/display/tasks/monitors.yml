@@ -1,0 +1,7 @@
+---
+- name: Install kanshi to handle multiple monitor setups
+  community.general.pacman:
+    name:
+      - "kanshi"
+    state: "present"
+  become: true
