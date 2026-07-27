@@ -5,3 +5,12 @@
       - "kanshi"
     state: "present"
   become: true
+
+- name: Enable and start the kanshi service
+  ansible.builtin.systemd_service:
+    scope: "user"
+    name: "kanshi"
+    state: "started"
+    enabled: true
+  become: true
+  become_user: "{{ username }}"
