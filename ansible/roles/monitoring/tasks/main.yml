@@ -3,6 +3,7 @@
   community.general.pacman:
     name:
       - "btop"
+      - "nvtop"
       - "s-tui"
     state: "present"
   become: true
