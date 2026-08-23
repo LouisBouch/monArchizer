@@ -236,7 +236,7 @@ seat seat0 xcursor_theme Adwaita 24
 
 # Keybind to lock sway and put pc to sleep.
 bindsym --no-repeat $mod+Shift+s exec sh -c "swaylock -f -i ~/.config/sway/wallpapers/bg.webp -k --indicator-radius 70 --indicator-thickness 30 && sleep 1 && systemctl suspend"
-bindsym --locked --no-repeat $mod+Shift+w exec sh -c "systemctl suspend"
+bindsym --locked --no-repeat $mod+Shift+w exec sh -c "sleep 1 && systemctl suspend"
 bindsym --locked --no-repeat $mod+Shift+z exec "systemctl poweroff"
 
 # client.<class> <border> <background> <text> [<indicator> [<child_border>]]
