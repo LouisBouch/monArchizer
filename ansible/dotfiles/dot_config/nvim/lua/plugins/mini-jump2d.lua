@@ -6,7 +6,7 @@ return {
       dim = true,
       n_steps_ahead = 1,
     },
-    labels = 'abcdefghijklmnopqrstuvwxyz;ACDEFHIJKLMNOPQRSUVWXYZ:',
+    labels = 'abcdefghijklmnopqrstuvwxz;,./ACDEFHIJKLMNOPQRSUVWXZ:<>?',
   },
   config = function(_, opts)
     require('mini.jump2d').setup(opts)
