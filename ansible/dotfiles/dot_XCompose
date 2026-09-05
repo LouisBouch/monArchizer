@@ -1,22 +1,53 @@
+### Acute
 <Multi_key> <e> : "é"
 
+<Multi_key> <E> : "É"
+
+
+### Grave
 <Multi_key> <apostrophe> <e> : "è"
 <Multi_key> <apostrophe> <a> : "à"
 <Multi_key> <apostrophe> <u> : "ù"
 
+<Multi_key> <apostrophe> <E> : "È"
+<Multi_key> <apostrophe> <A> : "À"
+<Multi_key> <apostrophe> <U> : "Ù"
+
+
+### Circumflex
 <Multi_key> <bracketleft> <e> : "ê"
 <Multi_key> <bracketleft> <a> : "â"
 <Multi_key> <bracketleft> <i> : "î"
 <Multi_key> <bracketleft> <o> : "ô"
 <Multi_key> <bracketleft> <u> : "û"
 
+<Multi_key> <bracketleft> <E> : "Ê"
+<Multi_key> <bracketleft> <A> : "Â"
+<Multi_key> <bracketleft> <I> : "Î"
+<Multi_key> <bracketleft> <O> : "Ô"
+<Multi_key> <bracketleft> <U> : "Û"
+
+
+### Umlaut / Diaeresis
 <Multi_key> <bracketright> <e> : "ë"
 <Multi_key> <bracketright> <i> : "ï"
 <Multi_key> <bracketright> <u> : "ü"
 
+<Multi_key> <bracketright> <E> : "Ë"
+<Multi_key> <bracketright> <I> : "Ï"
+<Multi_key> <bracketright> <U> : "Ü"
+
+
+### Cedilla
 <Multi_key> <c> : "ç"
 
+<Multi_key> <C> : "Ç"
+
+
+# French quotes
 <Multi_key> <z> : "«"
 <Multi_key> <x> : "»"
 
+
+# Tilda
 <Multi_key> <semicolon> : "~"
