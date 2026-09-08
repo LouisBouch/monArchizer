@@ -16,7 +16,7 @@
 ---@field parser? string Tree-sitter parser
 ---@field formatters? string[] List of formatters
 ---@field linters? string[] List of linters
----@field lang_servs? string[] Language server(s) (Almost always just one)
+---@field lang_servs? string[] Language server(s) (Almost always just one, and should match the name from [lspconfig](https://github.com/neovim/nvim-lspconfig/tree/master/lsp). To ensure mason can install it, change the installed name in the mason [config file](https://github.com/LouisBouch/monArchizer/blob/main/ansible/dotfiles/dot_config/nvim/lua/plugins/mason.lua))
 ---@field debug_adps? string[] Debug adapter(s) (Almost always just one)
 
 ---@type table<string, Filetype> List of language servers/debug adapters/... for each filetype
