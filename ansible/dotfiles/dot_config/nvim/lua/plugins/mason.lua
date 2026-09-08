@@ -5,6 +5,7 @@ local package_name_mapping = {
   lua_ls = "lua-language-server",
   rust_analyzer = false,
   slint_lsp = "slint-lsp",
+  bashls = "bash-language-server",
   -- Formatter
   ruff_format = "ruff",
   -- DAP
@@ -14,10 +15,14 @@ local function mason_packages_from_ft_specs(ft_specs)
   local packages = {}
   for _, specs in pairs(ft_specs) do
     for pack_type, pack_list in pairs(specs or {}) do
-      if pack_type == "parser" then goto continue end
+      if pack_type == "parser" then
+        goto continue
+      end
       for _, pack in ipairs(pack_list or {}) do
         local mapping = package_name_mapping[pack]
-        if mapping == false then goto continue end
+        if mapping == false then
+          goto continue
+        end
         table.insert(packages, mapping or pack)
       end
       ::continue::
@@ -46,7 +51,8 @@ return {
       "williamboman/mason.nvim",
     },
     config = function()
-      local ensure_installed = meta_h.remove_dups(mason_packages_from_ft_specs(require("ft_specs")))
+      local ensure_installed =
+        meta_h.remove_dups(mason_packages_from_ft_specs(require("ft_specs")))
       local opts = {
         ensure_installed = ensure_installed,
       }
@@ -54,4 +60,3 @@ return {
     end,
   },
 }
-

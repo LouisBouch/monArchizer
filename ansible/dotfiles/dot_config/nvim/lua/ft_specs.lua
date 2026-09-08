@@ -12,7 +12,6 @@
 -- Also, this here is only for listing the tools used. To access the configs for
 -- each filetype, go to the corresponding tool's directory (lsp, dap, formatting, ...)
 
-
 ---@class Filetype
 ---@field parser? string Tree-sitter parser
 ---@field formatters? string[] List of formatters
@@ -28,12 +27,12 @@ M = {
     parser = "lua",
     formatters = { "stylua" },
     linters = { "selene" },
-    lang_servs = { "lua_ls", },
+    lang_servs = { "lua_ls" },
     debug_adps = { "osv_lua" },
   },
   rust = { -- Rust, .rs
     parser = "rust",
-    lang_servs = { "rust_analyzer", },
+    lang_servs = { "rust_analyzer" },
   },
   -- TODO: Check if entry is required for .h and .hpp files
   c = { -- C, .c .h
@@ -80,6 +79,8 @@ M = {
   },
   sh = { -- Bash, .sh
     parser = "bash",
+    lang_servs = { "bashls" },
+    linters = { "shellcheck" },
   },
   zsh = { -- Zsh, .zsh
     parser = "zsh",
@@ -95,6 +96,5 @@ M = {
     parser = "awk",
   },
 }
-
 
 return M
