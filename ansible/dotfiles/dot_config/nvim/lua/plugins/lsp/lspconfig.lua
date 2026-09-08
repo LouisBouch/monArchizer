@@ -10,17 +10,6 @@ local function lsp_from_ft_specs(ft_specs)
 end
 -- Filetype configs
 
--- Slint
-local slint_lsp =  {
-  on_attach = function(client, bufnr)
-    vim.keymap.set("n", "<leader>sp", function()
-      client:exec_cmd({
-        command = "slint/showPreview",
-        arguments = { vim.uri_from_bufnr(bufnr) },
-      })
-    end, { buffer = bufnr, desc = "Open Slint preview" })
-  end,
-}
 -- The following languages should have language specific plugins.
 -- https://github.com/neovim/nvim-lspconfig/wiki/Language-specific-plugins
 -- Also, to check extra lsp capabilities of the buffer, run
