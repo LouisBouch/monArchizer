@@ -41,7 +41,7 @@
     state: "present"
   become: true
 
-- name: Install ImageMagick
+- name: Install ImageMagick for image editing
   community.general.pacman:
     name:
       - "imagemagick"
@@ -52,5 +52,12 @@
   community.general.pacman:
     name:
       - "strace"
+    state: "present"
+  become: true
+
+- name: Install tealdeer for better man info
+  community.general.pacman:
+    name:
+      - "tealdeer"
     state: "present"
   become: true
